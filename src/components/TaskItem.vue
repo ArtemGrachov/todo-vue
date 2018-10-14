@@ -1,10 +1,10 @@
 <template>
   <div class="host">
     <div class="title">
-      Task title
+      {{ task.title }}
     </div>
     <div class="description">
-      Task description
+      {{ task.description }}
     </div>
     <div class="actions">
       <button>
@@ -18,7 +18,8 @@
 import TodoService from "../services/todo.service";
 
 export default {
-  name: "TaskItem"
+  name: "TaskItem",
+  props: ["task"]
 };
 </script>
 

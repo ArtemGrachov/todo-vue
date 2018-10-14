@@ -1,4 +1,9 @@
+import axios from 'axios';
+import apiConfig from '../configs/api.config';
+
 export default {
-  test() {
+  getAllTasks() {
+    return axios.get(apiConfig.url + 'tasks')
+      .then(res => res.data)
   }
 }
