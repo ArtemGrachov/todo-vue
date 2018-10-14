@@ -7,7 +7,7 @@
       {{ task.description }}
     </div>
     <div class="actions">
-      <button>
+      <button @click="deleteTask">
         Delete
       </button>
     </div>
@@ -15,11 +15,15 @@
 </template>
 
 <script>
-import TodoService from "../services/todo.service";
 
 export default {
   name: "TaskItem",
-  props: ["task"]
+  props: ["task"],
+  methods: {
+    deleteTask() {
+      this.$emit('delete', this.task._id);
+    }
+  }
 };
 </script>
 

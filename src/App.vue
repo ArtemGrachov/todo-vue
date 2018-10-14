@@ -2,7 +2,12 @@
   <div>
     <div class="container">
       <h1>ToDo App</h1>
-      <task-item v-for="task in tasks" v-bind:key="task.id" v-bind:task="task"></task-item>
+      <task-item
+        v-for="task in tasks"
+        v-bind:key="task.id"
+        v-bind:task="task"
+        @delete="deleteTask"
+      ></task-item>
       <new-task-form @submit="createTask"></new-task-form>
     </div>
   </div>
@@ -40,7 +45,11 @@ export default {
       });
     },
     updateTask() {},
-    removeTask() {}
+    deleteTask(taskId) {
+      ToDoService.deleteTask(taskId).then(() => {
+        this.tasks = this.tasks.filter(task => task._id !== taskId);
+      });
+    }
   }
 };
 </script>
