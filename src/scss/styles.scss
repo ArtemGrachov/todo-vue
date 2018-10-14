@@ -1,0 +1,43 @@
+html, body {
+  padding: 0;
+  margin: 0;
+  height: 100%;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0 0 32px;
+}
+
+input,
+textarea {
+  display: block;
+  margin-bottom: 12px;
+  border: 1px solid lightblue;
+  padding: 12px;
+  width: 100%;
+}
+
+label {
+  font-weight: bold;
+}
+
+
+textarea {
+  resize: vertical;
+}
+
+form {
+  border: 1px solid lightgreen;
+  padding: 12px;
+}

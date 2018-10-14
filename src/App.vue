@@ -3,26 +3,44 @@
     <div class="container">
       <h1>ToDo App</h1>
       <task-item v-for="task in tasks" v-bind:key="task.id" v-bind:task="task"></task-item>
+      <new-task-form @submit="createTask"></new-task-form>
     </div>
   </div>
 </template>
 
 <script>
-import TaskItemVue from "./components/TaskItem.vue";
+import TaskItem from "./components/TaskItem.vue";
+import NewTaskForm from "./components/NewTaskForm.vue";
+
 import ToDoService from "./services/todo.service";
 
 export default {
   name: "app",
-  components: { "task-item": TaskItemVue },
+  components: {
+    "task-item": TaskItem,
+    "new-task-form": NewTaskForm
+  },
   data: function() {
     return {
       tasks: []
     };
   },
   created() {
-    ToDoService.getAllTasks().then(res => {
-      this.tasks = res;
-    })
+    this.getAllTasks();
+  },
+  methods: {
+    getAllTasks() {
+      ToDoService.getAllTasks().then(res => {
+        this.tasks = res;
+      });
+    },
+    createTask(taskData) {
+      ToDoService.createTask(taskData).then(res => {
+        this.tasks.push(res);
+      });
+    },
+    updateTask() {},
+    removeTask() {}
   }
 };
 </script>
