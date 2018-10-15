@@ -14,5 +14,9 @@ export default {
   },
   deleteTask(taskId) {
     return axios.delete(`${url}/${taskId}`);
+  },
+  updateTask(taskId, taskData) {
+    return axios.put(`${url}/${taskId}`, taskData)
+      .then(res => res.data);
   }
 }

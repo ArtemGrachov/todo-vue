@@ -7,6 +7,7 @@
         v-bind:key="task.id"
         v-bind:task="task"
         @delete="deleteTask"
+        @update="updateTask"
       ></task-item>
       <new-task-form @submit="createTask"></new-task-form>
     </div>
@@ -44,7 +45,18 @@ export default {
         this.tasks.push(res);
       });
     },
-    updateTask() {},
+    updateTask(taskId, taskData) {
+      ToDoService.updateTask(taskId, taskData).then(res => {
+        const index = this.tasks.findIndex(task => task._id === res._id);
+        if (index === -1) {
+          this.tasks = this.tasks.concat(res);
+        } else {
+          const arr = [].concat(this.tasks);
+          arr[index] = res;
+          this.tasks = arr;
+        };
+      });
+    },
     deleteTask(taskId) {
       ToDoService.deleteTask(taskId).then(() => {
         this.tasks = this.tasks.filter(task => task._id !== taskId);
