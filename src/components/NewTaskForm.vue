@@ -1,6 +1,5 @@
 <template>
   <form v-on:submit.prevent="submit()">
-    <h2>New task</h2>
     <label for="title">Title</label>
     <input type="title" v-model="form.title">
     <label for="description">Description</label>
@@ -11,7 +10,9 @@
       rows="10"
       v-model="form.description"
     ></textarea>
-    <button>Send</button>
+    <button>
+      Add
+    </button>
   </form>
 </template>
 

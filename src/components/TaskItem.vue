@@ -13,19 +13,19 @@
       </div>
     </template>
     <div class="actions">
-      <button @click="deleteTask">
-        Delete
-      </button>
       <template v-if="editMode">
-        <button @click="updateTask">
-          Update
+        <button @click="cancelEdit" class="button-link">
+          <i class="fas fa-times"></i>
         </button>
-        <button @click="cancelEdit">
-          Close edit
+        <button @click="updateTask" class="button-link">
+          <i class="fas fa-save"></i>
         </button>
+      <button @click="deleteTask" class="button-link">
+        <i class="fas fa-trash-alt"></i>
+      </button>
       </template>
-      <button @click="editTask" v-else>
-        Edit
+      <button @click="editTask" v-else class="button-link">
+        <i class="fas fa-pen"></i>
       </button>
     </div>
   </div>
@@ -62,20 +62,34 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss" scoped>
+@import "../scss/styles.scss";
+
 .host {
-  margin-bottom: 10px;
-  border: 1px solid lightgreen;
-  padding: 12px;
+  padding: 8px;
+  background: white;
+  border-bottom: 1px dotted #cac4bf;
 }
 
 .title {
   font-weight: bold;
+  color: $dark;
   margin-bottom: 12px;
 }
 
 .description {
   font-style: italic;
   margin-bottom: 10px;
+  color: $medium;
+}
+
+.actions {
+  text-align: right;
+  button {
+    opacity: 0.5;
+    &:hover {
+      opacity: 1;
+    }
+  }
 }
 </style>

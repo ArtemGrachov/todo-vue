@@ -1,15 +1,25 @@
 <template>
-  <div>
-    <div class="container">
-      <h1>ToDo App</h1>
-      <task-item
-        v-for="task in tasks"
-        v-bind:key="task.id"
-        v-bind:task="task"
-        @delete="deleteTask"
-        @update="updateTask"
-      ></task-item>
-      <new-task-form @submit="createTask"></new-task-form>
+  <div class="wrap">
+    <header>
+      <h1 class="title">ToDo App</h1>
+      <div class="description">
+        <b>M</b>ongoDB + <b>E</b>xpress + <b>V</b>ueJS + <b>N</b>ode
+      </div>
+    </header>
+    <task-item
+      v-for="task in tasks"
+      v-bind:key="task.id"
+      v-bind:task="task"
+      @delete="deleteTask"
+      @update="updateTask"
+    ></task-item>
+    <div class="new-task-form">
+      <button class="button-link form-toggle-button" @click="toggleForm">
+        <i class="fas fa-times" v-if="newTaskForm"></i>
+        <i class="fas fa-plus-circle" v-else></i>
+        New task
+      </button>
+      <new-task-form @submit="createTask" v-if="newTaskForm"></new-task-form>
     </div>
   </div>
 </template>
@@ -28,7 +38,8 @@ export default {
   },
   data: function() {
     return {
-      tasks: []
+      tasks: [],
+      newTaskForm: false
     };
   },
   created() {
@@ -54,23 +65,52 @@ export default {
           const arr = [].concat(this.tasks);
           arr[index] = res;
           this.tasks = arr;
-        };
+        }
       });
     },
     deleteTask(taskId) {
       ToDoService.deleteTask(taskId).then(() => {
         this.tasks = this.tasks.filter(task => task._id !== taskId);
       });
+    },
+    toggleForm() {
+      this.newTaskForm = !this.newTaskForm;
     }
   }
 };
 </script>
+<style lang="scss" scoped>
+@import './scss/variables.scss';
+.wrap {
+  margin: 32px 64px;
+  box-shadow: 0 8px 8px 8px rgba(black, .1);
+  background: white;
+}
 
-<style>
-.container {
-  width: auto;
-  margin: 0 auto;
-  max-width: 800px;
-  padding: 12px;
+header {
+  margin: 0 0 8px;
+  color: white;
+  background: #7e6549;
+}
+
+.title {
+  font-size: 24px;
+  padding: 16px 8px 8px;
+}
+
+.description {
+  padding: 8px;
+  background: $bright;
+  color: #5a4731;
+  font-size: 14px;
+}
+
+.new-task-form {
+  padding: 8px;
+}
+
+.form-toggle-button {
+  display: block;
+  width: 100%;
 }
 </style>
