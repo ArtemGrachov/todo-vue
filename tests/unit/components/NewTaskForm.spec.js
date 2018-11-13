@@ -7,8 +7,14 @@ import {
 import NewTaskForm from '../../../src/components/NewTaskForm.vue';
 
 describe('NewTaskForm.vue', () => {
-  it('mounted', () => {
-    const wrapper = shallowMount(NewTaskForm);
-    expect(wrapper).be.a('object')
+  let wrapper;
+
+  beforeEach(function () {
+    wrapper = shallowMount(NewTaskForm);
+  })
+
+  it('submit event', () => {
+    wrapper.vm.submit();
+    expect(wrapper.emitted().submit).to.have.lengthOf(1);
   })
 })
