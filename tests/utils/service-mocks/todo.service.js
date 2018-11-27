@@ -1,4 +1,4 @@
-export const allTasks = [{
+const tasks = [{
   description: 'Mock task #1',
   title: 'Task #1',
   _id: '1'
@@ -8,23 +8,21 @@ export const allTasks = [{
   _id: '2'
 }];
 
+export const allTasks = function () {
+  return [].concat(tasks);
+};
+
+export const newTaskId = '3';
+
 export const MockToDoService = {
   getAllTasks() {
-    return new Promise(res => res([{
-      description: 'Mock task #1',
-      title: 'Task #1',
-      _id: '1'
-    }, {
-      description: 'Mock task #2',
-      title: 'Task #2',
-      _id: '2'
-    }]));
+    return new Promise(res => res(allTasks()));
   },
   createTask(taskData) {
     return new Promise(res => res({
       description: taskData.description,
       title: taskData.title,
-      _id: '3'
+      _id: newTaskId
     }));
   },
   deleteTask(taskId) {
