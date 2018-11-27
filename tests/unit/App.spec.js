@@ -12,7 +12,7 @@ describe('App.vue', () => {
 
   beforeEach(() => {
     wrapper = shallowMount(App, {
-      mocks: {
+      provide: {
         toDoService: MockToDoService
       }
     });
@@ -26,8 +26,8 @@ describe('App.vue', () => {
 
   it('getAllTasks', done => {
     wrapper.vm.getAllTasks();
-    setTimeout(() => {
+    wrapper.vm.$nextTick(() => {
       done();
-    }, 1000);
+    })
   })
 })
