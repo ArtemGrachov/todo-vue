@@ -28,8 +28,6 @@
 import TaskItem from "./components/TaskItem.vue";
 import NewTaskForm from "./components/NewTaskForm.vue";
 
-import ToDoService from "./services/todo.service";
-
 export default {
   name: "app",
   components: {
@@ -47,17 +45,17 @@ export default {
   },
   methods: {
     getAllTasks() {
-      ToDoService.getAllTasks().then(res => {
+      this.toDoService.getAllTasks().then(res => {
         this.tasks = res;
       });
     },
     createTask(taskData) {
-      ToDoService.createTask(taskData).then(res => {
+      this.toDoService.createTask(taskData).then(res => {
         this.tasks.push(res);
       });
     },
     updateTask(taskId, taskData) {
-      ToDoService.updateTask(taskId, taskData).then(res => {
+      this.toDoService.updateTask(taskId, taskData).then(res => {
         const index = this.tasks.findIndex(task => task._id === res._id);
         if (index === -1) {
           this.tasks = this.tasks.concat(res);
@@ -69,14 +67,15 @@ export default {
       });
     },
     deleteTask(taskId) {
-      ToDoService.deleteTask(taskId).then(() => {
+      this.toDoService.deleteTask(taskId).then(() => {
         this.tasks = this.tasks.filter(task => task._id !== taskId);
       });
     },
     toggleForm() {
       this.newTaskForm = !this.newTaskForm;
     }
-  }
+  },
+  inject: ['toDoService']
 };
 </script>
 <style lang="scss" scoped>
