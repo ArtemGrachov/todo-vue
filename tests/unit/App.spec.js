@@ -5,7 +5,10 @@ import {
   shallowMount
 } from '@vue/test-utils'
 import App from '../../src/App.vue';
-import MockToDoService from '../utils/service-mocks/todo.service';
+import {
+  allTasks,
+  MockToDoService
+} from '../utils/service-mocks/todo.service';
 
 describe('App.vue', () => {
   let wrapper;
@@ -24,10 +27,9 @@ describe('App.vue', () => {
     expect(wrapper.vm.newTaskForm).to.equal(formStateInverted);
   })
 
-  it('getAllTasks', done => {
-    wrapper.vm.getAllTasks();
+  it('get all tasks', () => {
     wrapper.vm.$nextTick(() => {
-      done();
+      expect(wrapper.vm.tasks).to.have.members(allTasks);
     })
   })
 })
