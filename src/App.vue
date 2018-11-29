@@ -36,46 +36,31 @@ export default {
   },
   data: function() {
     return {
-      tasks: [],
       newTaskForm: false
     };
   },
+  computed: {
+    tasks: function() {
+      return this.$store.state.tasks;
+    }
+  },
   created() {
-    this.getAllTasks();
+    this.$store.dispatch('getTasks');
   },
   methods: {
-    getAllTasks() {
-      this.toDoService.getAllTasks().then(res => {
-        this.tasks = res;
-      });
-    },
     createTask(taskData) {
-      this.toDoService.createTask(taskData).then(res => {
-        this.tasks.push(res);
-      });
+      this.$store.dispatch('createTask', taskData);
     },
     updateTask(taskId, taskData) {
-      this.toDoService.updateTask(taskId, taskData).then(res => {
-        const index = this.tasks.findIndex(task => task._id === res._id);
-        if (index === -1) {
-          this.tasks = this.tasks.concat(res);
-        } else {
-          const arr = [].concat(this.tasks);
-          arr[index] = res;
-          this.tasks = arr;
-        }
-      });
+      this.$store.dispatch('updateTask', {id: taskId, data: taskData});
     },
     deleteTask(taskId) {
-      this.toDoService.deleteTask(taskId).then(() => {
-        this.tasks = this.tasks.filter(task => task._id !== taskId);
-      });
+      this.$store.dispatch('deleteTask', taskId);
     },
     toggleForm() {
       this.newTaskForm = !this.newTaskForm;
     }
-  },
-  inject: ['toDoService']
+  }
 };
 </script>
 <style lang="scss" scoped>
