@@ -41,9 +41,7 @@ describe('App.vue', () => {
         wrapper.vm.createTask(newTask);
         return wrapper.vm.$nextTick()
       })
-      .then(() => {
-        return wrapper.vm.$nextTick()
-      })
+      .then(() => wrapper.vm.$nextTick())
       .then(() => {
         const find = wrapper.vm.tasks.find(
           task => {
@@ -52,6 +50,30 @@ describe('App.vue', () => {
           }
         )
         expect(find).to.be.ok
+      })
+  })
+
+  it('update task', () => {
+    const updateData = {
+        title: 'New title',
+        descrption: 'New description'
+      },
+      updateIndex = 0;
+
+    wrapper.vm.$nextTick()
+      .then(() => {
+        wrapper.vm.updateTask(
+          wrapper.vm.tasks[updateIndex]._id,
+          updateData
+        )
+      })
+      .then(() => wrapper.vm.$nextTick())
+      .then(() => {
+        const updatedTask = wrapper.vm.tasks[updateIndex];
+        expect(
+          updatedTask.title === updateData.title,
+          updatedTask.description === updateData.descrption
+        ).to.be.false;
       })
   })
 })

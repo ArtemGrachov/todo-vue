@@ -24,12 +24,14 @@ mock.onPost(tasksUrl).reply(req => {
     }, JSON.parse(req.data)))
   ]
 });
-mock.onPut(tasksUrl + '/:id').reply(req => {
+mock.onPut(tasksUrl + '/1').reply(req => {
   return [
     200,
-    (Object.assign({},
-      tasks.find(task => task._id === req.params.id),
-      req.data))
+    (Object.assign({
+        _id: '1'
+      },
+      tasks[0],
+      JSON.parse(req.data)))
   ]
 });
 
