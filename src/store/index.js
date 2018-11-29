@@ -30,7 +30,7 @@ export default new Vuex.Store({
       if (index === -1) {
         state.tasks.push(payload);
       } else {
-        state.tasks[index] = payload;
+        Object.assign(state.tasks[index], payload);
       }
     },
     [DELETE_TASK](state, payload) {
