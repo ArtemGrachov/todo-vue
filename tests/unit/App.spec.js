@@ -4,81 +4,25 @@ import {
 import {
   shallowMount
 } from '@vue/test-utils'
+import mockStore from '../utils/mock-store';
 import App from '../../src/App.vue';
-import {
-  allTasks,
-  newTaskId,
-  MockToDoService
-} from '../utils/service-mocks/todo.service';
 
 describe('App.vue', () => {
   let wrapper;
-  const task = {
-    title: 'Task title',
-    description: 'Task description'
-  };
 
   beforeEach(() => {
     wrapper = shallowMount(App, {
-      provide: {
-        toDoService: MockToDoService
+      mocks: {
+        $store: mockStore
       }
     });
-  })
+  });
 
   it('toggle new task form', () => {
     const formStateInverted = !wrapper.vm.newTaskForm;
     wrapper.vm.toggleForm();
     expect(wrapper.vm.newTaskForm).to.equal(formStateInverted);
-  })
+  });
 
-  it('get all tasks', () => {
-    wrapper.vm.$nextTick(() => {
-      expect(wrapper.vm.tasks).to.have.members(allTasks());
-    })
-  })
-
-  it('create task', () => {
-    wrapper.vm.createTask(task);
-    wrapper.vm.$nextTick(() => {
-      expect(
-        wrapper.vm.tasks
-        .find(task => task._id === newTaskId)
-      ).to.not.equal(-1)
-    })
-  })
-
-  it('delete task', () => {
-    let taskToDelete;
-
-    wrapper.vm.$nextTick()
-      .then(() => {
-        taskToDelete = wrapper.vm.tasks[0];
-        wrapper.vm.deleteTask(taskToDelete._id);
-        return wrapper.vm.$nextTick();
-      })
-      .then(() => {
-        expect(wrapper.vm.tasks).not.to.include(taskToDelete);
-      });
-  })
-
-  it('update task', () => {
-    const updateData = {
-      title: 'Updated title'
-    };
-    let taskToUpdate;
-    wrapper.vm.$nextTick()
-      .then(() => {
-        taskToUpdate = wrapper.vm.tasks[0];
-        wrapper.vm.updateTask(taskToUpdate._id, updateData);
-        return wrapper.vm.$nextTick();
-      })
-      .then(() => {
-        expect(
-          wrapper.vm.tasks.find(
-            task => task._id === taskToUpdate._id
-          ).title
-        ).to.equal(updateData.title);
-      });
-  })
+  
 })

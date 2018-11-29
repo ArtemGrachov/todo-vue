@@ -52,7 +52,7 @@ export default {
       this.$store.dispatch('createTask', taskData);
     },
     updateTask(taskId, taskData) {
-      this.$store.dispatch('updateTask', {id: taskId, data: taskData});
+      this.$store.dispatch('updateTask', { id: taskId, data: taskData });
     },
     deleteTask(taskId) {
       this.$store.dispatch('deleteTask', taskId);
