@@ -34,5 +34,5 @@ mock.onPut(tasksUrl + '/1').reply(req => {
       JSON.parse(req.data)))
   ]
 });
-
+mock.onDelete(tasksUrl + '/1').reply(200, tasks[0]);
 export default actionsFactory(axios);

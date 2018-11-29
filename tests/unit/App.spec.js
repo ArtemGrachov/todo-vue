@@ -76,4 +76,20 @@ describe('App.vue', () => {
         ).to.be.false;
       })
   })
+
+  it('delete task', () => {
+    wrapper.vm.$nextTick()
+      .then(() => {
+        wrapper.vm.deleteTask('1')
+      })
+      .then(() => wrapper.vm.$nextTick())
+      .then(() => wrapper.vm.$nextTick())
+      .then(() => {
+        expect(
+          wrapper.vm.tasks.find(
+            task => task._id === '1'
+          )
+        ).to.be.undefined;
+      })
+  })
 })
