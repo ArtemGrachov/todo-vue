@@ -53,13 +53,32 @@ describe('App.vue', () => {
 
     wrapper.vm.$nextTick()
       .then(() => {
-        expect(wrapper.vm.tasks.length).to.equal(2)
         taskToDelete = wrapper.vm.tasks[0];
         wrapper.vm.deleteTask(taskToDelete._id);
         return wrapper.vm.$nextTick();
       })
       .then(() => {
         expect(wrapper.vm.tasks).not.to.include(taskToDelete);
+      });
+  })
+
+  it('update task', () => {
+    const updateData = {
+      title: 'Updated title'
+    };
+    let taskToUpdate;
+    wrapper.vm.$nextTick()
+      .then(() => {
+        taskToUpdate = wrapper.vm.tasks[0];
+        wrapper.vm.updateTask(taskToUpdate._id, updateData);
+        return wrapper.vm.$nextTick();
+      })
+      .then(() => {
+        expect(
+          wrapper.vm.tasks.find(
+            task => task._id === taskToUpdate._id
+          ).title
+        ).to.equal(updateData.title);
       });
   })
 })
