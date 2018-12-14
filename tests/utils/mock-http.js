@@ -4,9 +4,16 @@ import apiConfig from '../../src/configs/api.config';
 import mockDataFactory from './mock-data-factory';
 
 const tasksUrl = apiConfig.url + 'tasks';
-const mock = new MockAdapter(axios);
+const mock = new MockAdapter(axios, {
+  delayResponse: 0
+});
 
-mock.onGet(tasksUrl).reply(200, mockDataFactory());
+mock.onGet(tasksUrl).reply(() => {
+  return [
+    200,
+    mockDataFactory()
+  ]
+});
 mock.onPost(tasksUrl).reply(req => {
   return [
     200,

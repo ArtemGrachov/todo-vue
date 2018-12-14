@@ -44,7 +44,7 @@ export default {
       return this.$store.state.tasks;
     }
   },
-  created() {
+  created() { 
     this.$store.dispatch('getTasks');
   },
   methods: {
