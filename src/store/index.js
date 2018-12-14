@@ -3,11 +3,12 @@ import Vuex from 'vuex';
 import axios from 'axios';
 import actionsFactory from './actions-factory';
 import mutations from './mutations';
-import state from './state';
+import stateFactory from './state-factory';
 
 Vue.use(Vuex);
 
-const actions = actionsFactory(axios);
+const actions = actionsFactory(axios),
+  state = stateFactory();
 
 export default new Vuex.Store({
   strict: true,

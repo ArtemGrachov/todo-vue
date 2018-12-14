@@ -13,7 +13,7 @@ export default {
     state.tasks.push(payload);
   },
   [UPDATE_TASK](state, payload) {
-    const index = state.tasks.findIndex(task => task._id === payload._id);
+    const index = state.tasks.findIndex(task => task._id === payload.id);
     if (index === -1) {
       state.tasks.push(payload);
     } else {
