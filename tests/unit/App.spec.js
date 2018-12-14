@@ -8,8 +8,7 @@ import mockStoreFactory from '../utils/mock-store-factory';
 import {
   ADD_TASK,
   UPDATE_TASK,
-  DELETE_TASK,
-  // DELETE_TASK
+  DELETE_TASK
 } from '../../src/store/mutation-types';
 import App from '../../src/App.vue';
 
