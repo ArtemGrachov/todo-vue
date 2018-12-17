@@ -34,6 +34,7 @@
 <script>
 export default {
   name: "TaskItem",
+  inject: ['eventBus'],
   props: ["task"],
   data: function() {
     return {

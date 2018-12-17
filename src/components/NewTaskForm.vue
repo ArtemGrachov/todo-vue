@@ -18,18 +18,22 @@
 
 <script>
 export default {
-  name: "NewTaskForm",
+  name: 'NewTaskForm',
+  inject: ['eventBus'],
   data: function() {
     return {
       form: {
-        title: "New task",
-        description: ""
+        title: 'New task',
+        description: ''
       }
     };
   },
   methods: {
     submit() {
-      this.$emit("submit", this.form);
+      this.eventBus.$emit('newTaskSubmit', this.form);
+    },
+    closeWindow() {
+      this.$emit('closeWindow');
     }
   }
 };

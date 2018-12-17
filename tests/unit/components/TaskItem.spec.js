@@ -5,6 +5,7 @@ import {
   shallowMount
 } from '@vue/test-utils'
 import TaskItem from '../../../src/components/TaskItem.vue';
+import Vue from 'vue';
 
 describe('TaskItem.vue', () => {
   let wrapper;
@@ -18,6 +19,9 @@ describe('TaskItem.vue', () => {
     wrapper = shallowMount(TaskItem, {
       propsData: {
         task
+      },
+      provide: {
+        eventBus: new Vue()
       }
     });
   })

@@ -11,13 +11,17 @@ import {
   DELETE_TASK
 } from '../../src/store/mutation-types';
 import App from '../../src/App.vue';
+import Vue from 'vue';
 
 describe('App.vue', () => {
   let wrapper;
 
   beforeEach(() => {
     wrapper = shallowMount(App, {
-      store: mockStoreFactory()
+      store: mockStoreFactory(),
+      provide: {
+        eventBus: new Vue()
+      }
     });
   });
 

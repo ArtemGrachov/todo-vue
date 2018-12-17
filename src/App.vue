@@ -19,7 +19,7 @@
         <i class="fas fa-plus-circle" v-else></i>
         New task
       </button>
-      <new-task-form @submit="createTask" v-if="newTaskForm"></new-task-form>
+      <new-task-form v-if="newTaskForm"></new-task-form>
     </div>
   </div>
 </template>
@@ -30,6 +30,7 @@ import NewTaskForm from "./components/NewTaskForm.vue";
 
 export default {
   name: "app",
+  inject: ['eventBus'],
   components: {
     "task-item": TaskItem,
     "new-task-form": NewTaskForm
@@ -46,6 +47,13 @@ export default {
   },
   created() { 
     this.$store.dispatch('getTasks');
+
+    this.eventBus.$on('newTaskSubmit', newTaskData => {
+      this.createTask(newTaskData);
+    })
+  },
+  destroyed() {
+    this.eventBus.$off('newTaskSubmit');
   },
   methods: {
     createTask(taskData) {
