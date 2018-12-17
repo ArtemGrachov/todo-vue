@@ -2,6 +2,7 @@
 @import './variables.scss';
 @import '../../node_modules/@fortawesome/fontawesome-free/scss/fontawesome.scss';
 @import '../../node_modules/@fortawesome/fontawesome-free/scss/solid.scss';
+@import './common.scss';
 
 html, body {
   padding: 0;
@@ -94,5 +95,38 @@ a {
   box-shadow: none;
   &+.button-link {
     margin-left: 16px;
+  }
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 50;
+
+  &-backdrop {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(black, .5);
+    z-index: -1;
+  }
+
+  &-body {
+    background: white;
+    padding: 10px;
+    @extend %shadow;
+  }
+
+  &-close {
+    float: right;
   }
 }

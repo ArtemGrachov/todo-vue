@@ -12,6 +12,7 @@ import {
 } from '../../src/store/mutation-types';
 import App from '../../src/App.vue';
 import Vue from 'vue';
+import NewTaskForm from '../../src/components/NewTaskForm.vue';
 
 describe('App.vue', () => {
   let wrapper;
@@ -108,10 +109,17 @@ describe('App.vue', () => {
     })
   });
 
-  it('toggling new task edit form', () => {
-    const vm = wrapper.vm,
-      formStatus = vm.newTaskForm;
-    vm.toggleForm();
-    expect(formStatus).not.to.equal(vm);
+  it('open new task form modal window', () => {
+    const vm = wrapper.vm;
+    vm.openNewTaskForm();
+    expect(vm.modals).to.include(NewTaskForm);
+  })
+
+  it('close new task form modal window', () => {
+    const vm = wrapper.vm;
+    vm.openNewTaskForm();
+    const formIndex = vm.modals.indexOf(NewTaskForm);
+    vm.closeModal(formIndex);
+    expect(vm.modals).not.to.include(NewTaskForm);
   })
 });

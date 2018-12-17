@@ -14,13 +14,18 @@
       @update="updateTask"
     ></task-item>
     <div class="new-task-form">
-      <button class="button-link form-toggle-button" @click="toggleForm">
+      <button class="button-link form-toggle-button" @click="openNewTaskForm">
         <i class="fas fa-times" v-if="newTaskForm"></i>
         <i class="fas fa-plus-circle" v-else></i>
         New task
       </button>
-      <new-task-form v-if="newTaskForm"></new-task-form>
     </div>
+    <component
+      v-for="(modal, index) in modals"
+      v-bind:key="index"
+      v-bind:is="modal"
+      @closeWindow="closeModal(index)"
+    ></component>
   </div>
 </template>
 
@@ -37,7 +42,8 @@ export default {
   },
   data: function() {
     return {
-      newTaskForm: false
+      newTaskForm: false,
+      modals: []
     };
   },
   computed: {
@@ -65,8 +71,11 @@ export default {
     deleteTask(taskId) {
       this.$store.dispatch('deleteTask', taskId);
     },
-    toggleForm() {
-      this.newTaskForm = !this.newTaskForm;
+    openNewTaskForm() {
+      this.modals.push(NewTaskForm);
+    },
+    closeModal(index) {
+      this.modals.splice(index);
     }
   }
 };
