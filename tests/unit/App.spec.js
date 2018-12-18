@@ -34,13 +34,16 @@ describe('App.vue', () => {
     });
   });
 
-  it('creating tasks', () => {
-    const newTask = {
-      title: 'New task',
-      description: 'New task description'
-    };
+  it('creating tasks', done => {
+    const vm = wrapper.vm,
+      newTask = {
+        title: 'New task',
+        description: 'New task description'
+      };
 
-    wrapper.vm.$store.subscribe((mutation) => {
+    vm.$store.dispatch('createTask', newTask);
+
+    vm.$store.subscribe((mutation) => {
       if (mutation.type === ADD_TASK) {
         expect(
           wrapper
@@ -50,10 +53,9 @@ describe('App.vue', () => {
             task => task.title === newTask.title && task.description === newTask.description
           )
         ).to.be.ok;
+        done();
       }
     });
-
-    wrapper.vm.createTask(newTask);
   });
 
   it('updating tasks', () => {

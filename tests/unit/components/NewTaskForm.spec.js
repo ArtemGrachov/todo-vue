@@ -5,41 +5,31 @@ import {
   shallowMount
 } from '@vue/test-utils'
 import NewTaskForm from '../../../src/components/NewTaskForm.vue';
-import Vue from 'vue';
+import mockStoreFactory from '../../utils/mock-store-factory';
+import { ADD_TASK } from '../../../src/store/mutation-types';
 
 describe('NewTaskForm.vue', () => {
   let wrapper;
 
   beforeEach(function () {
     wrapper = shallowMount(NewTaskForm, {
-      provide: function () {
-        return {
-          eventBus: new Vue()
-        }
-      }
+      store: mockStoreFactory()
     });
   })
 
-  it('submit', () => {
-    const vm = wrapper.vm,
-      draft = {
-        title: 'Task #11',
-        description: 'Hello, World!'
+  it('submit', done => {
+    const newTask = {
+      title: 'New task',
+      description: 'New task description'
+    };
+
+    wrapper.vm.$store.subscribe((mutation) => {
+      if (mutation.type === ADD_TASK) {
+        done();
       }
+    });
 
-    vm.form.title = draft.title;
-    vm.form.description = draft.description;
-
-    let emitted;
-
-    vm.eventBus.$on('newTaskSubmit', data => {
-      emitted = data;
-    })
-
-    vm.submit();
-
-    expect(emitted.title).to.equal(draft.title);
-    expect(emitted.description).to.equal(draft.description);
+    wrapper.vm.submit(newTask);
   })
 
   it('close window', () => {

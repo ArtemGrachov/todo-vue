@@ -25,7 +25,6 @@
 <script>
 export default {
   name: 'NewTaskForm',
-  inject: ['eventBus'],
   data: function() {
     return {
       form: {
@@ -36,7 +35,7 @@ export default {
   },
   methods: {
     submit() {
-      this.eventBus.$emit('newTaskSubmit', this.form);
+      this.$store.dispatch('createTask', this.form);
     },
     closeWindow() {
       this.$emit('closeWindow');

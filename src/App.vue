@@ -53,18 +53,11 @@ export default {
   },
   created() { 
     this.$store.dispatch('getTasks');
-
-    this.eventBus.$on('newTaskSubmit', newTaskData => {
-      this.createTask(newTaskData);
-    })
   },
   destroyed() {
     this.eventBus.$off('newTaskSubmit');
   },
   methods: {
-    createTask(taskData) {
-      this.$store.dispatch('createTask', taskData);
-    },
     updateTask(taskId, taskData) {
       this.$store.dispatch('updateTask', { id: taskId, data: taskData });
     },
