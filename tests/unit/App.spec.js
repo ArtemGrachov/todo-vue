@@ -20,12 +20,14 @@ describe('App.vue', () => {
   beforeEach(() => {
     wrapper = shallowMount(App, {
       store: mockStoreFactory(),
-      provide: {
-        eventBus: new Vue()
+      sync: false,
+      provide: function () {
+        return {
+          eventBus: new Vue()
+        }
       }
     });
   });
-
   it('loading tasks', () => {
     wrapper.vm.$store.subscribe((mutation, state) => {
       expect(wrapper.vm.tasks).to.deep.equal(state.tasks);

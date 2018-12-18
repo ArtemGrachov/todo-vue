@@ -22,8 +22,8 @@
     </div>
     <component
       v-for="(modal, index) in modals"
-      v-bind:key="index"
-      v-bind:is="modal"
+      :key="index"
+      :is="modal"
       @closeWindow="closeModal(index)"
     ></component>
   </div>

@@ -20,8 +20,10 @@ describe('TaskItem.vue', () => {
       propsData: {
         task
       },
-      provide: {
-        eventBus: new Vue()
+      provide: function () {
+        return {
+          eventBus: new Vue()
+        }
       }
     });
   })

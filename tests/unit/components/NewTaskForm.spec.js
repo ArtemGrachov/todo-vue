@@ -12,8 +12,10 @@ describe('NewTaskForm.vue', () => {
 
   beforeEach(function () {
     wrapper = shallowMount(NewTaskForm, {
-      provide: {
-        eventBus: new Vue()
+      provide: function () {
+        return {
+          eventBus: new Vue()
+        }
       }
     });
   })
