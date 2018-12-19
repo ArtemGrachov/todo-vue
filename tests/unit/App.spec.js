@@ -28,9 +28,11 @@ describe('App.vue', () => {
       }
     });
   });
-  it('loading tasks', () => {
+
+  it('loading tasks', done => {
     wrapper.vm.$store.subscribe((mutation, state) => {
       expect(wrapper.vm.tasks).to.deep.equal(state.tasks);
+      done();
     });
   });
 
@@ -58,7 +60,7 @@ describe('App.vue', () => {
     });
   });
 
-  it('updating tasks', () => {
+  it('updating tasks', done => {
     const updateFields = {
       title: 'Updated title',
       description: 'Updated description'
@@ -84,12 +86,13 @@ describe('App.vue', () => {
           expect(updatedTask).to.be.ok;
           expect(updatedTask.title).to.equal(updateFields.title);
           expect(updatedTask.description).to.equal(updateFields.description);
+          done();
         }
       }
     });
   });
 
-  it('deleting tasks', () => {
+  it('deleting tasks', done => {
     let taskToDeleteId;
     const vm = wrapper.vm;
 
@@ -108,6 +111,7 @@ describe('App.vue', () => {
               task => task._id === taskToDeleteId
             );
           expect(deletedTak).not.to.be.ok;
+          done();
         }
       }
     })
