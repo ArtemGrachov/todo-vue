@@ -6,12 +6,12 @@ import {
 } from '@vue/test-utils';
 import Vue from 'vue';
 import moxios from 'moxios';
-import TaskWindow from '../../../src/components/TaskWindow.vue';
-import mockStoreFactory from '../../utils/mock-store-factory';
-import mockDataFactory from '../../utils/mock-data-factory';
+import TaskWindow from '../../../../src/components/TaskWindow/TaskWindow.vue';
+import mockStoreFactory from '../../../utils/mock-store-factory';
+import mockDataFactory from '../../../utils/mock-data-factory';
 import {
   stubGetTasks200,
-} from '../../utils/mock-http';
+} from '../../../utils/mock-http';
 
 const item = mockDataFactory()[0];
 
