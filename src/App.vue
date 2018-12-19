@@ -23,22 +23,24 @@
     <component
       v-for="(modal, index) in modals"
       :key="index"
-      :is="modal"
+      :is="modal.cmp"
+      v-bind:data="modal.data"
       @closeWindow="closeModal(index)"
     ></component>
   </div>
 </template>
 
 <script>
-import TaskItem from "./components/TaskItem.vue";
-import NewTaskForm from "./components/NewTaskForm.vue";
+import TaskItem from './components/TaskItem.vue';
+import NewTaskForm from './components/NewTaskForm.vue';
+import TaskWindow from './components/TaskWindow.vue';
 
 export default {
-  name: "app",
+  name: 'app',
   inject: ['eventBus'],
   components: {
-    "task-item": TaskItem,
-    "new-task-form": NewTaskForm
+    'task-item': TaskItem,
+    'new-task-form': NewTaskForm
   },
   data: function() {
     return {
@@ -53,6 +55,13 @@ export default {
   },
   created() { 
     this.$store.dispatch('getTasks');
+
+    this.eventBus.$on('openTaskDetails', taskId => {
+      this.modals.push({
+        cmp: TaskWindow,
+        data: taskId
+      });
+    })
   },
   destroyed() {
     this.eventBus.$off('newTaskSubmit');
@@ -65,7 +74,7 @@ export default {
       this.$store.dispatch('deleteTask', taskId);
     },
     openNewTaskForm() {
-      this.modals.push(NewTaskForm);
+      this.modals.push({cmp: NewTaskForm});
     },
     closeModal(index) {
       this.modals.splice(index);

@@ -20,9 +20,10 @@ import {
   stubDeleteTasks200
 } from '../utils/mock-http';
 import NewTaskForm from '../../src/components/NewTaskForm.vue';
+import TaskWindow from '../../src/components/TaskWindow.vue';
 
 describe('App.vue', () => {
-  let wrapper;
+  let wrapper, vm;
 
   beforeEach(() => {
     moxios.install();
@@ -36,6 +37,7 @@ describe('App.vue', () => {
         }
       }
     });
+    vm = wrapper.vm;
   });
 
   afterEach(() => {
@@ -43,18 +45,17 @@ describe('App.vue', () => {
   })
 
   it('loading tasks', done => {
-    wrapper.vm.$store.subscribe((mutation, state) => {
-      expect(wrapper.vm.tasks).to.deep.equal(state.tasks);
+    vm.$store.subscribe((mutation, state) => {
+      expect(vm.tasks).to.deep.equal(state.tasks);
       done();
     });
   });
 
   it('creating tasks', done => {
-    const vm = wrapper.vm,
-      newTask = {
-        title: 'New task',
-        description: 'New task description'
-      };
+    const newTask = {
+      title: 'New task',
+      description: 'New task description'
+    };
 
     stubPostTasks200(moxios, newTask);
 
@@ -80,8 +81,6 @@ describe('App.vue', () => {
       title: 'Updated title',
       description: 'Updated description'
     };
-
-    const vm = wrapper.vm;
 
     let taskToUpdate;
 
@@ -111,7 +110,6 @@ describe('App.vue', () => {
 
   it('deleting tasks', done => {
     let taskToDeleteId;
-    const vm = wrapper.vm;
 
     vm.$store.subscribe(mutation => {
       if (!taskToDeleteId) {
@@ -136,16 +134,37 @@ describe('App.vue', () => {
   });
 
   it('open new task form modal window', () => {
-    const vm = wrapper.vm;
     vm.openNewTaskForm();
-    expect(vm.modals).to.include(NewTaskForm);
+    const formModal = vm.modals.find(modalData => modalData.cmp === NewTaskForm);
+    expect(formModal).to.be.ok;
   })
 
   it('close new task form modal window', () => {
-    const vm = wrapper.vm;
     vm.openNewTaskForm();
-    const formIndex = vm.modals.indexOf(NewTaskForm);
+    let formIndex;
+    vm.modals.find((modalData, index) => {
+      const find = modalData.cmp === NewTaskForm;
+      if (find) {
+        formIndex = index;
+      }
+      return find;
+    });
     vm.closeModal(formIndex);
-    expect(vm.modals).not.to.include(NewTaskForm);
+    
+    const formModal = vm.modals.find(modalData => modalData.cmp === NewTaskForm);
+    expect(formModal).not.to.be.ok;
+  })
+
+  it('open task details modal window', done => {
+    vm.eventBus.$on('openTaskDetails', () => {
+      vm.$nextTick()
+        .then(() => {
+          const taskWindowModal = vm.modals.find(modal => modal.cmp === TaskWindow);
+          expect(taskWindowModal).to.be.ok;
+          done();
+        })
+    })
+
+    vm.eventBus.$emit('openTaskDetails', '1');
   })
 });
