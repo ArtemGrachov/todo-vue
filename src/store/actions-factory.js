@@ -16,17 +16,17 @@ export default function (httpClient) {
         .then(data => context.commit(SET_TASKS, data));
     },
     createTask(context, payload) {
-      httpClient.post(tasksUrl, payload)
+      return httpClient.post(tasksUrl, payload)
         .then(res => res.data)
         .then(data => context.commit(ADD_TASK, data));
     },
     updateTask(context, payload) {
-      httpClient.put(`${tasksUrl}/${payload.id}`, payload.data)
+      return httpClient.put(`${tasksUrl}/${payload.id}`, payload.data)
         .then(res => res.data)
         .then(data => context.commit(UPDATE_TASK, data));
     },
     deleteTask(context, payload) {
-      httpClient.delete(`${tasksUrl}/${payload}`)
+      return httpClient.delete(`${tasksUrl}/${payload}`)
         .then(res => res.data)
         .then(data => context.commit(DELETE_TASK, data._id));
     }

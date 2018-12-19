@@ -11,7 +11,8 @@ import {
 } from '../../../src/store/mutation-types';
 import moxios from 'moxios';
 import {
-  stubPostTasks200
+  stubPostTasks200,
+  stubPostTasks500
 } from '../../utils/mock-http';
 
 function newTaskFactory() {
@@ -54,14 +55,21 @@ describe('NewTaskForm.vue', () => {
   })
 
   it('close on submit', done => {
-    const newTask = newTaskFactory();
+    const
+      vm = wrapper.vm,
+      newTask = newTaskFactory();
     stubPostTasks200(moxios, newTask);
 
-    wrapper.vm.$store.subscribe((mutation) => {
+    vm.$store.subscribe((mutation) => {
       if (mutation.type === ADD_TASK) {
-        const emitted = wrapper.emitted().closeWindow;
-        expect(emitted).to.have.lengthOf(1);
-        done();
+
+        vm
+          .$nextTick()
+          .then(() => {
+            const emitted = wrapper.emitted().closeWindow;
+            expect(emitted).to.have.lengthOf(1);
+            done();
+          })
       }
     })
 
@@ -73,5 +81,18 @@ describe('NewTaskForm.vue', () => {
     vm.closeWindow();
     const emitted = wrapper.emitted().closeWindow;
     expect(emitted).to.have.lengthOf(1);
+  })
+
+  it('http error on submit', done => {
+    const vm = wrapper.vm;
+
+    stubPostTasks500(moxios);
+
+    vm.submit(newTaskFactory()).then(() => {
+      expect(vm.formDisabled).to.be.false;
+      done();
+    })
+
+    expect(vm.formDisabled).to.be.true;
   })
 })
