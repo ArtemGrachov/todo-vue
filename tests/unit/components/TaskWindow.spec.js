@@ -4,23 +4,45 @@ import {
 import {
   shallowMount
 } from '@vue/test-utils';
-import TaskWindow from '../../../src/components/TaskWindow.vue';
 import Vue from 'vue';
+import moxios from 'moxios';
+import TaskWindow from '../../../src/components/TaskWindow.vue';
+import mockStoreFactory from '../../utils/mock-store-factory';
+import mockDataFactory from '../../utils/mock-data-factory';
+import {
+  stubGetTasks200,
+} from '../../utils/mock-http';
+
+const item = mockDataFactory()[0];
 
 describe('TaskWindow.vue', () => {
-  let wrapper;
-  const task = {
-    _id: '123123123',
-    title: 'Test item',
-    description: 'Item for unit test'
-  };
+  let wrapper, vm;
 
   beforeEach(() => {
-    wrapper = shallowMount(TaskItem, {
+    moxios.install();
+    stubGetTasks200(moxios);
+
+    wrapper = shallowMount(TaskWindow, {
+      store: mockStoreFactory(),
       propsData: {
-        task
+        inputData: item._id
+      },
+      provide: function () {
+        return {
+          eventBus: new Vue()
+        }
       }
     });
+
+    vm = wrapper.vm;
+  })
+
+  it('get task data', done => {
+    vm.$store.dispatch('getTasks')
+      .then(() => {
+        expect(vm.task).to.deep.equal(item);
+        done()
+      });
   })
 
 })

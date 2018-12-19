@@ -24,7 +24,7 @@
       v-for="(modal, index) in modals"
       :key="index"
       :is="modal.cmp"
-      v-bind:data="modal.data"
+      v-bind:inputData="modal.data"
       @closeWindow="closeModal(index)"
     ></component>
   </div>
