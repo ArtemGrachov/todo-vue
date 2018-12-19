@@ -2,11 +2,20 @@
   <div class="modal">
     <div class="modal-backdrop" @click="closeWindow"></div>
     <form class="modal-body" v-on:submit.prevent="submit()">
-      <button type="button" class="button-link modal-close" @click="closeWindow">
+      <button
+        type="button"
+        class="button-link modal-close"
+        @click="closeWindow"
+        :disabled="formDisabled"
+      >
         <i class="fas fa-times"></i>
       </button>
       <label for="title">Title</label>
-      <input type="title" v-model="form.title">
+      <input
+        type="title"
+        v-model="form.title"
+        :disabled="formDisabled"
+      >
       <label for="description">Description</label>
       <textarea
         name="description"
@@ -14,6 +23,7 @@
         cols="30"
         rows="10"
         v-model="form.description"
+        :disabled="formDisabled"
       ></textarea>
       <button>
         Add
@@ -30,11 +40,13 @@ export default {
       form: {
         title: 'New task',
         description: ''
-      }
+      },
+        formDisabled: false
     };
   },
   methods: {
     submit() {
+      this.formDisabled = true;
       this.$store.dispatch('createTask', this.form);
       this.closeWindow();
     },

@@ -11,7 +11,7 @@ const tasksUrl = apiConfig.url + 'tasks';
 export default function (httpClient) {
   return {
     getTasks(context) {
-      httpClient.get(tasksUrl)
+      return httpClient.get(tasksUrl)
         .then(res => res.data)
         .then(data => context.commit(SET_TASKS, data));
     },

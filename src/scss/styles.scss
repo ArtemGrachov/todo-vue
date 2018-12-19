@@ -37,6 +37,12 @@ textarea {
   border: 1px solid $light;
   padding: 12px;
   width: 100%;
+  background: white;
+  color: black;
+  &[disabled] {
+    color: rgba(black, .7);
+    cursor: not-allowed;
+  }
 }
 
 label {
