@@ -45,4 +45,9 @@ describe('TaskWindow.vue', () => {
       });
   })
 
+  it('close window', () => {
+    vm.closeWindow();
+    expect(wrapper.emitted().closeWindow).to.have.lengthOf(1);
+  })
+
 })

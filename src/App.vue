@@ -56,7 +56,7 @@ export default {
   created() { 
     this.$store.dispatch('getTasks');
 
-    this.eventBus.$on('openTaskDetails', taskId => {
+    this.eventBus.$on('openTaskWindow', taskId => {
       this.modals.push({
         cmp: TaskWindow,
         data: taskId

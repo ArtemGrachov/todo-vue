@@ -5,9 +5,43 @@ import {
   shallowMount
 } from '@vue/test-utils'
 import TaskItem from '../../../src/components/TaskItem.vue';
+import Vue from 'vue';
+
+function wrapperFactory(task) {
+  return shallowMount(TaskItem, {
+    propsData: {
+      task
+    },
+    provide: function () {
+      return {
+        eventBus: new Vue()
+      }
+    }
+  });
+}
 
 describe('TaskItem.vue', () => {
   let wrapper, vm;
+
+  describe('main', () => {
+    const task = {
+      _id: '123123123',
+      title: 'Test item',
+      description: 'Item for unit test'
+    };
+
+    beforeEach(() => {
+      wrapper = wrapperFactory(task);
+      vm = wrapper.vm;
+    })
+
+    it('open task window', done => {
+      vm.eventBus.$on('openTaskWindow', () => {
+        done();
+      })
+      vm.openTaskWindow();
+    })
+  })
 
   describe('short description', () => {
     const task = {
@@ -17,12 +51,7 @@ describe('TaskItem.vue', () => {
     };
 
     beforeEach(() => {
-      wrapper = shallowMount(TaskItem, {
-        propsData: {
-          task
-        }
-      });
-
+      wrapper = wrapperFactory(task);
       vm = wrapper.vm;
     })
 
@@ -39,12 +68,7 @@ describe('TaskItem.vue', () => {
     };
 
     beforeEach(() => {
-      wrapper = shallowMount(TaskItem, {
-        propsData: {
-          task
-        }
-      });
-
+      wrapper = wrapperFactory(task);
       vm = wrapper.vm;
     })
 

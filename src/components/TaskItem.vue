@@ -1,5 +1,5 @@
 <template>
-  <div class="host">
+  <div class="host" @click="openTaskWindow">
     <div class="title">
       {{ task.title }}
     </div>
@@ -13,6 +13,7 @@
 export default {
   name: 'TaskItem',
   props: ['task'],
+  inject: ['eventBus'],
   data: function() {
     return {
       shortDescription: ''
@@ -28,6 +29,9 @@ export default {
       } else {
         this.shortDescription = this.task.description;
       }
+    },
+    openTaskWindow() {
+      this.eventBus.$emit('openTaskWindow', this.task._id);
     }
   }
 };

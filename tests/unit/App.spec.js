@@ -156,7 +156,7 @@ describe('App.vue', () => {
   })
 
   it('open task details modal window', done => {
-    vm.eventBus.$on('openTaskDetails', () => {
+    vm.eventBus.$on('openTaskWindow', () => {
       vm.$nextTick()
         .then(() => {
           const taskWindowModal = vm.modals.find(modal => modal.cmp === TaskWindow);
@@ -165,6 +165,6 @@ describe('App.vue', () => {
         })
     })
 
-    vm.eventBus.$emit('openTaskDetails', '1');
+    vm.eventBus.$emit('openTaskWindow', '1');
   })
 });
