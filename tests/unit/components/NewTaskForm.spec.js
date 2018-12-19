@@ -32,6 +32,23 @@ describe('NewTaskForm.vue', () => {
     wrapper.vm.submit(newTask);
   })
 
+  it('close on submit', done => {
+    const newTask = {
+      title: 'New task',
+      description: 'New task description'
+    };
+
+    wrapper.vm.$store.subscribe((mutation) => {
+      if (mutation.type === ADD_TASK) {
+        const emitted = wrapper.emitted().closeWindow;
+        expect(emitted).to.have.lengthOf(1);
+        done();
+      }
+    })
+
+    wrapper.vm.submit(newTask);
+  })
+
   it('close window', () => {
     const vm = wrapper.vm;
     vm.closeWindow();

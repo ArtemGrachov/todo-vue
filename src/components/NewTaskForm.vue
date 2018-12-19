@@ -36,6 +36,7 @@ export default {
   methods: {
     submit() {
       this.$store.dispatch('createTask', this.form);
+      this.closeWindow();
     },
     closeWindow() {
       this.$emit('closeWindow');
