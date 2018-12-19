@@ -9,6 +9,10 @@ import mockStoreFactory from '../../utils/mock-store-factory';
 import {
   ADD_TASK
 } from '../../../src/store/mutation-types';
+import moxios from 'moxios';
+import {
+  stubPostTasks200
+} from '../../utils/mock-http';
 
 function newTaskFactory() {
   return {
@@ -20,20 +24,27 @@ function newTaskFactory() {
 describe('NewTaskForm.vue', () => {
   let wrapper;
 
-  beforeEach(function () {
+  beforeEach(() => {
+    moxios.install();
     wrapper = shallowMount(NewTaskForm, {
       store: mockStoreFactory()
     });
   })
 
+  afterEach(() => {
+    moxios.uninstall();
+  })
+
   it('submit', done => {
+    const newTask = newTaskFactory();
+    stubPostTasks200(moxios, newTask);
     wrapper.vm.$store.subscribe((mutation) => {
       if (mutation.type === ADD_TASK) {
         done();
       }
     });
 
-    wrapper.vm.submit(newTaskFactory());
+    wrapper.vm.submit(newTask);
   })
 
   it('disable form on submit', () => {
@@ -43,6 +54,9 @@ describe('NewTaskForm.vue', () => {
   })
 
   it('close on submit', done => {
+    const newTask = newTaskFactory();
+    stubPostTasks200(moxios, newTask);
+
     wrapper.vm.$store.subscribe((mutation) => {
       if (mutation.type === ADD_TASK) {
         const emitted = wrapper.emitted().closeWindow;
@@ -51,7 +65,7 @@ describe('NewTaskForm.vue', () => {
       }
     })
 
-    wrapper.vm.submit(newTaskFactory());
+    wrapper.vm.submit(newTask);
   })
 
   it('close window', () => {

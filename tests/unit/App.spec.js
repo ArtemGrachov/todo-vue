@@ -4,6 +4,7 @@ import {
 import {
   shallowMount
 } from '@vue/test-utils'
+import moxios from 'moxios';
 import mockStoreFactory from '../utils/mock-store-factory';
 import {
   ADD_TASK,
@@ -12,12 +13,20 @@ import {
 } from '../../src/store/mutation-types';
 import App from '../../src/App.vue';
 import Vue from 'vue';
+import {
+  stubGetTasks200,
+  stubPostTasks200,
+  stubPutTasks200,
+  stubDeleteTasks200
+} from '../utils/mock-http';
 import NewTaskForm from '../../src/components/NewTaskForm.vue';
 
 describe('App.vue', () => {
   let wrapper;
 
   beforeEach(() => {
+    moxios.install();
+    stubGetTasks200(moxios);
     wrapper = shallowMount(App, {
       store: mockStoreFactory(),
       sync: false,
@@ -28,6 +37,10 @@ describe('App.vue', () => {
       }
     });
   });
+
+  afterEach(() => {
+    moxios.uninstall();
+  })
 
   it('loading tasks', done => {
     wrapper.vm.$store.subscribe((mutation, state) => {
@@ -42,6 +55,8 @@ describe('App.vue', () => {
         title: 'New task',
         description: 'New task description'
       };
+
+    stubPostTasks200(moxios, newTask);
 
     vm.$store.dispatch('createTask', newTask);
 
@@ -65,6 +80,7 @@ describe('App.vue', () => {
       title: 'Updated title',
       description: 'Updated description'
     };
+
     const vm = wrapper.vm;
 
     let taskToUpdate;
@@ -73,6 +89,7 @@ describe('App.vue', () => {
       if (!taskToUpdate) {
         if (vm.tasks.length) {
           taskToUpdate = vm.tasks[0];
+          stubPutTasks200(moxios, taskToUpdate._id, updateFields);
           vm.updateTask(taskToUpdate._id, updateFields);
         }
       } else {
@@ -100,6 +117,7 @@ describe('App.vue', () => {
       if (!taskToDeleteId) {
         if (vm.tasks.length) {
           taskToDeleteId = vm.tasks[0]._id;
+          stubDeleteTasks200(moxios, taskToDeleteId);
           vm.deleteTask(taskToDeleteId);
         }
       } else {

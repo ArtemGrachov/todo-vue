@@ -1,36 +1,39 @@
-import axios from 'axios';
-import MockAdapter from 'axios-mock-adapter';
 import apiConfig from '../../src/configs/api.config';
 import mockDataFactory from './mock-data-factory';
 
 const tasksUrl = apiConfig.url + 'tasks';
-const mock = new MockAdapter(axios, {
-  delayResponse: 0
-});
 
-mock.onGet(tasksUrl).reply(() => {
-  return [
-    200,
-    mockDataFactory()
-  ]
-});
-mock.onPost(tasksUrl).reply(req => {
-  return [
-    200,
-    (Object.assign({
+export function stubGetTasks200(moxios) {
+  moxios.stubOnce('get', tasksUrl, {
+    status: 200,
+    response: mockDataFactory()
+  })
+}
+
+export function stubPostTasks200(moxios, data) {
+  moxios.stubOnce('post', tasksUrl, {
+    status: 200,
+    response: (Object.assign({
       _id: '3'
-    }, JSON.parse(req.data)))
-  ]
-});
-mock.onPut(tasksUrl + '/1').reply(req => {
-  return [
-    200,
-    (Object.assign({
-        _id: '1'
-      },
-      mockDataFactory()[0],
-      JSON.parse(req.data)))
-  ]
-});
-mock.onDelete(tasksUrl + '/1').reply(200, mockDataFactory()[0]);
-export default axios;
+    }, data))
+  })
+}
+
+export function stubPutTasks200(moxios, taskId, data) {
+  const taskToUpdate = mockDataFactory().find(task => task._id === taskId);
+  moxios.stubOnce('put', `${tasksUrl}/${taskId}`, {
+    status: 200,
+    response: (Object.assign({},
+      taskToUpdate,
+      data
+    ))
+  })
+}
+
+export function stubDeleteTasks200(moxios, taskId) {
+  const taskToDelete = mockDataFactory().find(task => task._id === taskId);
+  moxios.stubOnce('delete', `${tasksUrl}/${taskId}`, {
+    status: 200,
+    response: taskToDelete
+  })
+}
