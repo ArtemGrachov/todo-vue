@@ -44,22 +44,15 @@ export default {
   padding: 8px;
   background: white;
   border-bottom: 1px dotted #cac4bf;
+  cursor: pointer;
 
   &:hover {
     background: $lightHover;
   }
 }
 
-.title {
-  font-weight: bold;
-  color: $dark;
-  margin-bottom: 12px;
-}
-
 .description {
-  font-style: italic;
   margin-bottom: 10px;
-  color: $medium;
 }
 
 </style>

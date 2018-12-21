@@ -1,7 +1,7 @@
 <template>
   <div class="wrap">
     <header>
-      <h1 class="title">ToDo App</h1>
+      <h1 class="title title-white">ToDo App</h1>
       <div class="description">
         <b>M</b>ongoDB + <b>E</b>xpress + <b>V</b>ueJS + <b>N</b>ode
       </div>
@@ -33,7 +33,7 @@
 <script>
 import TaskItem from './components/TaskItem.vue';
 import NewTaskForm from './components/NewTaskForm.vue';
-import TaskWindow from './components/TaskWindow.vue';
+import TaskWindow from './components/TaskWindow/TaskWindow.vue';
 
 export default {
   name: 'app',

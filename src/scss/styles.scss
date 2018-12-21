@@ -4,7 +4,8 @@
 @import '../../node_modules/@fortawesome/fontawesome-free/scss/solid.scss';
 @import './common.scss';
 
-html, body {
+html,
+body {
   padding: 0;
   margin: 0;
   height: 100%;
@@ -39,6 +40,7 @@ textarea {
   width: 100%;
   background: white;
   color: black;
+
   &[disabled] {
     color: rgba(black, .7);
     cursor: not-allowed;
@@ -75,6 +77,7 @@ button {
   box-shadow: 0 2px 2px 0 rgba($dark, .5);
   text-align: center;
   cursor: pointer;
+
   &+button {
     margin-left: 4px;
   }
@@ -85,6 +88,7 @@ a,
   color: $medium;
   font-weight: bold;
   transition: $transition;
+
   &:hover {
     color: red;
   }
@@ -99,9 +103,25 @@ a {
   border: none;
   padding: 0;
   box-shadow: none;
+
   &+.button-link {
     margin-left: 16px;
   }
+}
+
+.title {
+  font-weight: bold;
+  color: $dark;
+  margin-bottom: 6px;
+
+  &-white {
+    color: white;
+  }
+}
+
+.description {
+  font-size: 14px;
+  color: $medium;
 }
 
 .modal {
@@ -134,5 +154,14 @@ a {
 
   &-close {
     float: right;
+  }
+
+  &-lg {
+    width: 80%;
+  }
+
+  &-md {
+    max-width: 500px;
+    margin: 0 20px;
   }
 }

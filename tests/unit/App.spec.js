@@ -20,7 +20,7 @@ import {
   stubDeleteTasks200
 } from '../utils/mock-http';
 import NewTaskForm from '../../src/components/NewTaskForm.vue';
-import TaskWindow from '../../src/components/TaskWindow.vue';
+import TaskWindow from '../../src/components/TaskWindow/TaskWindow.vue';
 
 describe('App.vue', () => {
   let wrapper, vm;

@@ -60,5 +60,4 @@ describe('TaskWindow.vue', () => {
     vm.toggleEdit();
     expect(vm.editMode).to.be.false;
   })
-
 })
