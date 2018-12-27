@@ -6,12 +6,21 @@
     <div class="description">
       {{task.description}}
     </div>
+    <button @click="toggleEdit">
+      <i class="fas fa-edit"></i>
+      Edit
+    </button>
   </div>
 </template>
 
 <script>
 export default {
-  props: ['task']
+  props: ['task'],
+  methods: {
+    toggleEdit() {
+      this.$emit('toggleEdit');
+    }
+  }
 };
 </script>
 
@@ -22,6 +31,7 @@ export default {
   font-size: 16px;
   padding: 5px;
   border: 1px dotted $light;
+  margin-bottom: 10px;
 }
 </style>
 

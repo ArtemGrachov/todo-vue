@@ -31,7 +31,8 @@ describe('TaskWindow.vue', () => {
         return {
           eventBus: new Vue()
         }
-      }
+      },
+      sync: false
     });
 
     vm = wrapper.vm;

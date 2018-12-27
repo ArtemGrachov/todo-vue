@@ -161,7 +161,25 @@ a {
   }
 
   &-md {
+    width: 100%;
     max-width: 500px;
     margin: 0 20px;
+  }
+}
+
+.editable {
+  position: relative;
+  &:hover {
+    &:before {
+      content: '\f044';
+      font-family: "Font Awesome 5 Free";
+      position: absolute;
+      top: 0;
+      right: 0;
+      opacity: .65;
+      color: $dark;
+      font-size: 18px;
+      background: white;
+    }
   }
 }

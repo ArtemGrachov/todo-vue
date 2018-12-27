@@ -1,9 +1,9 @@
 <template>
-  <div class="modal">
+  <div class="modal" v-if="task">
     <div class="modal-backdrop" @click="closeWindow"></div>
     <div class="modal-body modal-md">
-      <task-edit v-if="editMode"></task-edit>
-      <task-details v-else :task="task"></task-details>
+      <task-edit v-if="editMode" @toggleEdit="toggleEdit"></task-edit>
+      <task-details v-else :task="task" @toggleEdit="toggleEdit"></task-details>
     </div>
   </div>
 </template>
