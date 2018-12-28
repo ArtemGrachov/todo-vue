@@ -25,6 +25,15 @@
         Update
       </button>
       <button
+        type="button"
+        class="button-link"
+        :disabled="formDisabled"
+        @click="deleteTask"
+      >
+        <i class="fas fa-trash-alt"></i>
+        Delete
+      </button>
+      <button
         class="button-link"
         type="button"
         @click="toggleEdit"
