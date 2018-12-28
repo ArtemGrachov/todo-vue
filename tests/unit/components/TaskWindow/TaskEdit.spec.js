@@ -9,11 +9,12 @@ import TaskEdit from '../../../../src/components/TaskWindow/TaskEdit.vue';
 import mockStoreFactory from '../../../utils/mock-store-factory';
 import mockDataFactory from '../../../utils/mock-data-factory';
 import {
-  stubPutTasks200
+  stubPutTasks200, stubDeleteTasks200
 } from '../../../utils/mock-http';
 import {
   UPDATE_TASK,
-  SET_TASKS
+  SET_TASKS,
+  DELETE_TASK
 } from '../../../../src/store/mutation-types';
 
 describe('TaskEdit.vue', () => {
@@ -82,5 +83,20 @@ describe('TaskEdit.vue', () => {
 
     stubPutTasks200(moxios, vm.task._id, {});
     vm.updateTask({});
+  })
+
+  it('delete task', done => {
+    let id = vm.task._id;
+
+    stubDeleteTasks200(moxios, id);
+
+    vm.$store.subscribe(mutation => {
+      if (mutation.type === DELETE_TASK) {
+        expect(mutation.payload).to.equal(id);
+        done();
+      }
+    })
+
+    vm.deleteTask();
   })
 })

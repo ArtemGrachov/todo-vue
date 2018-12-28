@@ -62,6 +62,9 @@ export default {
       this.$store.dispatch('updateTask', {
         id: this.task._id,
         data: this.form}).then(() => this.formDisabled = false);
+    },
+    deleteTask() {
+      this.$store.dispatch('deleteTask', this.task._id);
     }
   }
 };
