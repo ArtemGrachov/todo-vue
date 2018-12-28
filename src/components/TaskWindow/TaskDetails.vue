@@ -6,7 +6,7 @@
     <div class="description">
       {{task.description}}
     </div>
-    <button @click="toggleEdit">
+    <button class="button-link" @click="toggleEdit">
       <i class="fas fa-edit"></i>
       Edit
     </button>

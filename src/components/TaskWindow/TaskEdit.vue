@@ -16,18 +16,27 @@
       v-model="form.description"
       :disabled="formDisabled"
     ></textarea>
-    <button :disabled="formDisabled">
-      Submit
-    </button>
-    <button type="button" @click="toggleEdit">
-      Close edit
-    </button>
+    <div class="controls">
+      <button
+        class="button-link"
+        :disabled="formDisabled"
+      >
+        <i class="fas fa-edit"></i>
+        Update
+      </button>
+      <button
+        class="button-link"
+        type="button"
+        @click="toggleEdit"
+      >
+        <i class="fas fa-times"></i>
+        Cancel
+      </button>
+    </div>
   </form>
 </template>
 
 <script>
-import { UPDATE_TASK } from '../../store/mutation-types';
-
 export default {
   props: ['task'],
   computed: {
@@ -59,4 +68,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.controls {
+  display: flex;
+  justify-content: space-between;
+}
 </style>
