@@ -6,6 +6,7 @@
       name="title"
       id="title"
       v-model="form.title"
+      :disabled="formDisabled"
     >
     <label for="description">Description:</label>
     <textarea
@@ -13,8 +14,9 @@
       id="description"
       rows="10"
       v-model="form.description"
+      :disabled="formDisabled"
     ></textarea>
-    <button>
+    <button :disabled="formDisabled">
       Submit
     </button>
     <button type="button" @click="toggleEdit">
