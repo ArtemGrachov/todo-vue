@@ -9,7 +9,8 @@ import TaskEdit from '../../../../src/components/TaskWindow/TaskEdit.vue';
 import mockStoreFactory from '../../../utils/mock-store-factory';
 import mockDataFactory from '../../../utils/mock-data-factory';
 import {
-  stubPutTasks200, stubDeleteTasks200
+  stubPutTasks200,
+  stubDeleteTasks200
 } from '../../../utils/mock-http';
 import {
   UPDATE_TASK,
@@ -94,6 +95,24 @@ describe('TaskEdit.vue', () => {
       if (mutation.type === DELETE_TASK) {
         expect(mutation.payload).to.equal(id);
         done();
+      }
+    })
+
+    vm.deleteTask();
+  })
+
+  it('emit close event on delete', done => {
+    let id = vm.task._id;
+
+    stubDeleteTasks200(moxios, id);
+
+    vm.$store.subscribe(mutation => {
+      if (mutation.type === DELETE_TASK) {
+        vm.$nextTick()
+          .then(() => {
+            expect(wrapper.emitted().closeWindow).to.have.lengthOf(1);
+            done();
+          })
       }
     })
 

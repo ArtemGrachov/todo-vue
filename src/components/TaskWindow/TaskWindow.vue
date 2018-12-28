@@ -6,6 +6,7 @@
         v-if="editMode"
         :task="task"
         @toggleEdit="toggleEdit"
+        @closeWindow="closeWindow"
       ></task-edit>
       <task-details
         v-else

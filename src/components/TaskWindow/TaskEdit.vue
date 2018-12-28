@@ -61,10 +61,13 @@ export default {
       this.formDisabled = true;
       this.$store.dispatch('updateTask', {
         id: this.task._id,
-        data: this.form}).then(() => this.formDisabled = false);
+        data: this.form
+      }).then(() => this.formDisabled = false);
     },
     deleteTask() {
-      this.$store.dispatch('deleteTask', this.task._id);
+      this.formDisabled = true;
+      this.$store.dispatch('deleteTask', this.task._id)
+        .then(() => this.$emit('closeWindow'));
     }
   }
 };
