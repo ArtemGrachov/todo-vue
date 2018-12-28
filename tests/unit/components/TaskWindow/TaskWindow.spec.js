@@ -38,6 +38,10 @@ describe('TaskWindow.vue', () => {
     vm = wrapper.vm;
   })
 
+  afterEach(() => {
+    moxios.uninstall();
+  })
+
   it('get task data', done => {
     vm.$store.dispatch('getTasks')
       .then(() => {
