@@ -76,63 +76,6 @@ describe('App.vue', () => {
     });
   });
 
-  it('updating tasks', done => {
-    const updateFields = {
-      title: 'Updated title',
-      description: 'Updated description'
-    };
-
-    let taskToUpdate;
-
-    vm.$store.subscribe(mutation => {
-      if (!taskToUpdate) {
-        if (vm.tasks.length) {
-          taskToUpdate = vm.tasks[0];
-          stubPutTasks200(moxios, taskToUpdate._id, updateFields);
-          vm.updateTask(taskToUpdate._id, updateFields);
-        }
-      } else {
-        if (mutation.type === UPDATE_TASK) {
-          const updatedTask =
-            vm
-            .tasks
-            .find(
-              task => task._id === taskToUpdate._id
-            );
-          expect(updatedTask).to.be.ok;
-          expect(updatedTask.title).to.equal(updateFields.title);
-          expect(updatedTask.description).to.equal(updateFields.description);
-          done();
-        }
-      }
-    });
-  });
-
-  it('deleting tasks', done => {
-    let taskToDeleteId;
-
-    vm.$store.subscribe(mutation => {
-      if (!taskToDeleteId) {
-        if (vm.tasks.length) {
-          taskToDeleteId = vm.tasks[0]._id;
-          stubDeleteTasks200(moxios, taskToDeleteId);
-          vm.deleteTask(taskToDeleteId);
-        }
-      } else {
-        if (mutation.type === DELETE_TASK) {
-          const deletedTak =
-            vm
-            .tasks
-            .find(
-              task => task._id === taskToDeleteId
-            );
-          expect(deletedTak).not.to.be.ok;
-          done();
-        }
-      }
-    })
-  });
-
   it('open new task form modal window', () => {
     vm.openNewTaskForm();
     const formModal = vm.modals.find(modalData => modalData.cmp === NewTaskForm);

@@ -4,7 +4,6 @@ VueJS ToDo application created for studing VueJS.
 This app uses [ToDo Application Server](https://github.com/ArtemGrachov/todo-node) (Express + MongoDB)
 
 ## ToDo:
-* hide long task description
 * add checking templates to unit tests
 * add animations
 * replace task view / edit by editable fields (title and description)
@@ -21,6 +20,7 @@ This app uses [ToDo Application Server](https://github.com/ArtemGrachov/todo-nod
 * tests
 * implement Vuex
 * move task form to modal window
+* hide long task description
 
 ## Project setup
 ```

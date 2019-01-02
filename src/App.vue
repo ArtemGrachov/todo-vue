@@ -10,8 +10,6 @@
       v-for="task in tasks"
       v-bind:key="task.id"
       v-bind:task="task"
-      @delete="deleteTask"
-      @update="updateTask"
     ></task-item>
     <div class="new-task-form">
       <button class="button-link form-toggle-button" @click="openNewTaskForm">
@@ -67,12 +65,6 @@ export default {
     this.eventBus.$off('newTaskSubmit');
   },
   methods: {
-    updateTask(taskId, taskData) {
-      this.$store.dispatch('updateTask', { id: taskId, data: taskData });
-    },
-    deleteTask(taskId) {
-      this.$store.dispatch('deleteTask', taskId);
-    },
     openNewTaskForm() {
       this.modals.push({cmp: NewTaskForm});
     },
