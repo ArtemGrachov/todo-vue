@@ -2,16 +2,8 @@
   <transition name="modal">
     <div class="modal" v-if="task" @click.self="closeWindow">
       <div class="modal-body modal-md">
-        <task-edit
-          v-if="editMode"
-          :task="task"
-          @toggleEdit="toggleEdit"
-          @closeWindow="closeWindow"
-        ></task-edit>
         <task-details
-          v-else
           :task="task"
-          @toggleEdit="toggleEdit"
         ></task-details>
       </div>
     </div>
@@ -20,13 +12,11 @@
 
 <script>
 import TaskDetails from './TaskDetails.vue';
-import TaskEdit from './TaskEdit.vue';
 
 export default {
   props: ['inputData'],
   components: {
-    'task-details': TaskDetails,
-    'task-edit': TaskEdit
+    'task-details': TaskDetails
   },
   data: function() {
     return {
@@ -41,9 +31,6 @@ export default {
   methods: {
     closeWindow() { 
       this.$emit('closeWindow');
-    },
-    toggleEdit() {
-      this.editMode = !this.editMode;
     }
   }
 }

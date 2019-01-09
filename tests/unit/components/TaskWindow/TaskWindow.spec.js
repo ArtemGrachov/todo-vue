@@ -54,15 +54,4 @@ describe('TaskWindow.vue', () => {
     vm.closeWindow();
     expect(wrapper.emitted().closeWindow).to.have.lengthOf(1);
   })
-
-  it('edit on', () => {
-    vm.toggleEdit();
-    expect(vm.editMode).to.be.true;
-  })
-
-  it('edit off', () => {
-    vm.editMode = true;
-    vm.toggleEdit();
-    expect(vm.editMode).to.be.false;
-  })
 })
