@@ -6,11 +6,13 @@
         <b>M</b>ongoDB + <b>E</b>xpress + <b>V</b>ueJS + <b>N</b>ode
       </div>
     </header>
-    <task-item
-      v-for="task in tasks"
-      v-bind:key="task.id"
-      v-bind:task="task"
-    ></task-item>
+    <transition-group name="slide-x">
+      <task-item
+        v-for="(task, index) in tasks"
+        :key="index"
+        :task="task"
+      ></task-item>
+    </transition-group>
     <div class="new-task-form">
       <button class="button-link form-toggle-button" @click="openNewTaskForm">
         <i class="fas fa-times" v-if="newTaskForm"></i>

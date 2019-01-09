@@ -7,17 +7,13 @@ import {
 import moxios from 'moxios';
 import mockStoreFactory from '../utils/mock-store-factory';
 import {
-  ADD_TASK,
-  UPDATE_TASK,
-  DELETE_TASK
+  ADD_TASK
 } from '../../src/store/mutation-types';
 import App from '../../src/App.vue';
 import Vue from 'vue';
 import {
   stubGetTasks200,
-  stubPostTasks200,
-  stubPutTasks200,
-  stubDeleteTasks200
+  stubPostTasks200
 } from '../utils/mock-http';
 import NewTaskForm from '../../src/components/NewTaskForm.vue';
 import TaskWindow from '../../src/components/TaskWindow/TaskWindow.vue';
@@ -93,7 +89,7 @@ describe('App.vue', () => {
       return find;
     });
     vm.closeModal(formIndex);
-    
+
     const formModal = vm.modals.find(modalData => modalData.cmp === NewTaskForm);
     expect(formModal).not.to.be.ok;
   })
