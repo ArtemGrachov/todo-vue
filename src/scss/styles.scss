@@ -132,24 +132,17 @@ a {
   right: 0;
   bottom: 0;
   overflow: auto;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   z-index: 50;
-
-  &-backdrop {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(black, .5);
-    z-index: -1;
-  }
+  display: flex;
+  padding: 20px;
+  align-items: flex-start;
+  justify-content: center;
+  background: rgba(black, .5);
 
   &-body {
     background: white;
     padding: 10px;
+    margin: auto;
     @extend %shadow;
   }
 
@@ -164,12 +157,12 @@ a {
   &-md {
     width: 100%;
     max-width: 500px;
-    margin: 0 20px;
   }
 }
 
 .editable {
   position: relative;
+
   &:hover {
     &:before {
       content: '\f044';

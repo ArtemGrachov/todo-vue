@@ -1,46 +1,47 @@
 <template>
   <div class="wrap">
-    <header>
-      <h1 class="title title-white">ToDo App</h1>
-      <div class="description">
-        <b>M</b>ongoDB + <b>E</b>xpress + <b>V</b>ueJS + <b>N</b>ode
+    <div class="page">
+      <header>
+        <h1 class="title title-white">ToDo App</h1>
+        <div class="description">
+          <b>M</b>ongoDB +
+          <b>E</b>xpress +
+          <b>V</b>ueJS +
+          <b>N</b>ode
+        </div>
+      </header>
+      <transition-group name="slide-x">
+        <task-item v-for="(task, index) in tasks" :key="index" :task="task"></task-item>
+      </transition-group>
+      <div class="new-task-form">
+        <button class="button-link form-toggle-button" @click="openNewTaskForm">
+          <i class="fas fa-times" v-if="newTaskForm"></i>
+          <i class="fas fa-plus-circle" v-else></i>
+          New task
+        </button>
       </div>
-    </header>
-    <transition-group name="slide-x">
-      <task-item
-        v-for="(task, index) in tasks"
+      <component
+        v-for="(modal, index) in modals"
         :key="index"
-        :task="task"
-      ></task-item>
-    </transition-group>
-    <div class="new-task-form">
-      <button class="button-link form-toggle-button" @click="openNewTaskForm">
-        <i class="fas fa-times" v-if="newTaskForm"></i>
-        <i class="fas fa-plus-circle" v-else></i>
-        New task
-      </button>
+        :is="modal.cmp"
+        v-bind:inputData="modal.data"
+        @closeWindow="closeModal(index)"
+      ></component>
     </div>
-    <component
-      v-for="(modal, index) in modals"
-      :key="index"
-      :is="modal.cmp"
-      v-bind:inputData="modal.data"
-      @closeWindow="closeModal(index)"
-    ></component>
   </div>
 </template>
 
 <script>
-import TaskItem from './components/TaskItem.vue';
-import NewTaskForm from './components/NewTaskForm.vue';
-import TaskWindow from './components/TaskWindow/TaskWindow.vue';
+import TaskItem from "./components/TaskItem.vue";
+import NewTaskForm from "./components/NewTaskForm.vue";
+import TaskWindow from "./components/TaskWindow/TaskWindow.vue";
 
 export default {
-  name: 'app',
-  inject: ['eventBus'],
+  name: "app",
+  inject: ["eventBus"],
   components: {
-    'task-item': TaskItem,
-    'new-task-form': NewTaskForm
+    "task-item": TaskItem,
+    "new-task-form": NewTaskForm
   },
   data: function() {
     return {
@@ -53,22 +54,22 @@ export default {
       return this.$store.state.tasks;
     }
   },
-  created() { 
-    this.$store.dispatch('getTasks');
+  created() {
+    this.$store.dispatch("getTasks");
 
-    this.eventBus.$on('openTaskWindow', taskId => {
+    this.eventBus.$on("openTaskWindow", taskId => {
       this.modals.push({
         cmp: TaskWindow,
         data: taskId
       });
-    })
+    });
   },
   destroyed() {
-    this.eventBus.$off('newTaskSubmit');
+    this.eventBus.$off("newTaskSubmit");
   },
   methods: {
     openNewTaskForm() {
-      this.modals.push({cmp: NewTaskForm});
+      this.modals.push({ cmp: NewTaskForm });
     },
     closeModal(index) {
       this.modals.splice(index);
@@ -77,10 +78,13 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-@import './scss/variables.scss';
+@import "./scss/variables.scss";
 .wrap {
-  margin: 32px 64px;
-  box-shadow: 0 8px 8px 8px rgba(black, .1);
+  padding: 32px 64px;
+}
+
+.page {
+  box-shadow: 0 8px 8px 8px rgba(black, 0.1);
   background: white;
 }
 

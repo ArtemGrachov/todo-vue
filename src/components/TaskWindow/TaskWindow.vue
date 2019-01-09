@@ -1,7 +1,6 @@
 <template>
   <transition name="modal">
-    <div class="modal" v-if="task">
-      <div class="modal-backdrop" @click="closeWindow"></div>
+    <div class="modal" v-if="task" @click.self="closeWindow">
       <div class="modal-body modal-md">
         <task-edit
           v-if="editMode"
