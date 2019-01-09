@@ -5,7 +5,6 @@ This app uses [ToDo Application Server](https://github.com/ArtemGrachov/todo-nod
 
 ## ToDo:
 * add checking templates to unit tests
-* add animations
 * replace task view / edit by editable fields (title and description)
 * setting tasks as done / undode
 * add JSDoc
@@ -21,6 +20,7 @@ This app uses [ToDo Application Server](https://github.com/ArtemGrachov/todo-nod
 * implement Vuex
 * move task form to modal window
 * hide long task description
+* add animations
 
 ## Project setup
 ```
