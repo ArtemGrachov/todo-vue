@@ -1,18 +1,8 @@
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity .1s;
-}
-
-.fade-enter,
-.fade-leave-to {
-  opacity: 0;
-}
-
 .slide-x-enter-active,
 .slide-x-leave-active,
 .slide-y-enter-active,
 .slide-y-leave-active {
-  transition: .35s;
+  transition: .25s;
 }
 
 
@@ -31,10 +21,10 @@ $slideMove: 20px;
 
 .modal-enter-active,
 .modal-leave-active {
-  transition: .35s;
+  transition: .15s;
 
   .modal-body {
-    transition: .35s;
+    transition: .15s;
   }
 }
 
