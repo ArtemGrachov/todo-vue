@@ -1,6 +1,6 @@
 <template>
   <transition name="modal">
-    <div class="modal" @click.self="closeWindow">
+    <div class="modal modal-md" @click.self="closeWindow">
       <form class="modal-body" v-on:submit.prevent="submit()">
         <button
           type="button"

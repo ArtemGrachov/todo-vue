@@ -1,24 +1,17 @@
-import {
-  expect
-} from 'chai';
-import {
-  shallowMount
-} from '@vue/test-utils';
+import chai from 'chai';
+import { expect } from 'chai';
+import spies  from 'chai-spies';
+import { shallowMount } from '@vue/test-utils';
 import moxios from 'moxios';
 import TaskDetails from '../../../../src/components/TaskWindow/TaskDetails.vue';
 import mockStoreFactory from '../../../utils/mock-store-factory';
 import mockDataFactory from '../../../utils/mock-data-factory';
-import {
-  stubPutTasks200,
-  stubDeleteTasks200
-} from '../../../utils/mock-http';
-import {
-  UPDATE_TASK,
-  SET_TASKS,
-  DELETE_TASK
-} from '../../../../src/store/mutation-types';
+import { stubPutTasks200, stubDeleteTasks200 } from '../../../utils/mock-http';
+import { UPDATE_TASK, SET_TASKS, DELETE_TASK } from '../../../../src/store/mutation-types';
 
-describe('TaskEdit.vue', () => {
+chai.use(spies);
+
+describe('TaskDetails.vue', () => {
   let wrapper, vm;
 
   beforeEach(() => {
@@ -42,7 +35,40 @@ describe('TaskEdit.vue', () => {
     moxios.uninstall();
   })
 
-  it('update task', done => {
+  it('filters update form', () => {
+    const updateFields = {
+      title: 'Updated title',
+      description: vm.task.description
+    }
+
+    const filteredForm = vm.filterForm(updateFields);
+
+    expect(filteredForm.title).to.be.ok;
+    expect(filteredForm.description).not.to.be.ok;
+  })
+
+  it('do not allow update', () => {
+    const spy = chai.spy.on(vm, 'updateTaskRequest');
+
+    vm.formUpdate({
+      title: vm.task.title,
+      description: vm.task.description
+    });
+
+    expect(spy).not.to.have.been.called();
+  })
+
+  it('allow update', () => {
+    const spy = chai.spy.on(vm, 'updateTaskRequest');
+
+    vm.formUpdate({
+      title: 'new title'
+    });
+
+    expect(spy).to.have.been.called();
+  })
+
+  it('update task request', done => {
     const updateFields = {
       title: 'Updated title',
       description: 'Updated description'
@@ -56,12 +82,12 @@ describe('TaskEdit.vue', () => {
     });
 
     stubPutTasks200(moxios, vm.task._id, updateFields);
-    vm.updateTask(updateFields);
+    vm.updateTaskRequest(updateFields);
   })
 
   it('disable form on update', () => {
     stubPutTasks200(moxios, vm.task._id, {});
-    vm.updateTask({});
+    vm.updateTaskRequest({});
     expect(vm.formDisabled).to.be.true;
   })
 
@@ -77,7 +103,7 @@ describe('TaskEdit.vue', () => {
     });
 
     stubPutTasks200(moxios, vm.task._id, {});
-    vm.updateTask({});
+    vm.updateTaskRequest({});
   })
 
   it('delete task', done => {

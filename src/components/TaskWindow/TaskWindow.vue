@@ -1,7 +1,7 @@
 <template>
   <transition name="modal">
-    <div class="modal" v-if="task" @click.self="closeWindow">
-      <div class="modal-body modal-md">
+    <div class="modal modal-md" v-if="task" @click.self="closeWindow">
+      <div class="modal-body">
         <task-details
           :task="task"
         ></task-details>

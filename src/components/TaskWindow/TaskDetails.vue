@@ -1,7 +1,8 @@
 <template>
-  <form @submit.prevent="updateTask" v-if="form">
+  <form v-if="form" @submit.prevent>
     <label for="title">Title:</label>
     <input
+      class="editable-field title"
       type="text"
       name="title"
       id="title"
@@ -10,6 +11,7 @@
     >
     <label for="description">Description:</label>
     <textarea
+      class="editable-field"
       name="description"
       id="description"
       rows="10"
@@ -55,12 +57,30 @@ export default {
     }
   },
   methods: {
-    updateTask() {
+    filterForm(form) {
+      const newForm = {};
+      for (let key in form) {
+        if (form[key] !== this.task[key]) {
+          newForm[key] = form[key];
+        }
+      }
+      return newForm;
+    },
+    updateTaskRequest(form) {
       this.formDisabled = true;
       this.$store.dispatch('updateTask', {
         id: this.task._id,
-        data: this.form
+        data: form
       }).then(() => this.formDisabled = false);
+    },
+    formUpdate(form) {
+      const filtered = this.filterForm(form);
+
+      // eslint-disable-next-line
+      for (let key in filtered) {
+        this.updateTaskRequest(filtered);
+        break;
+      }
     },
     deleteTask() {
       this.formDisabled = true;

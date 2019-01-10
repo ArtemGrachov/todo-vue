@@ -46,6 +46,28 @@ textarea {
     color: rgba(black, .7);
     cursor: not-allowed;
   }
+
+  &:focus,
+  &:active {
+    outline: none;
+  }
+}
+
+input,
+textarea {
+  &.editable-field {
+    padding-left: 0;
+    padding-right: 0;
+    border-color: transparent;
+    transition: padding $transition, background $transition;
+
+    &:focus {
+      border-color: $light;
+      background: $lightHover;
+      padding-left: 4px;
+      padding-right: 4px;
+    }
+  }
 }
 
 label {
@@ -151,12 +173,16 @@ a {
   }
 
   &-lg {
-    width: 80%;
+    .modal-body {
+      width: 80%;
+    }
   }
 
   &-md {
-    width: 100%;
-    max-width: 500px;
+    .modal-body {
+      width: 100%;
+      max-width: 500px;
+    }
   }
 }
 
