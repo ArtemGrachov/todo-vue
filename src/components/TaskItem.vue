@@ -14,22 +14,15 @@ export default {
   name: 'TaskItem',
   props: ['task'],
   inject: ['eventBus'],
-  data: function() {
-    return {
-      shortDescription: ''
-    };
-  },
-  created() {
-    this.trimDescription();
+  computed: {
+    shortDescription() {
+      if (this.task.description.length > 100) {
+        return this.task.description.slice(0, 100).trim() + '...';
+      } 
+      return this.task.description;
+    }
   },
   methods: {
-    trimDescription() {
-      if (this.task.description.length > 100) {
-        this.shortDescription = this.task.description.slice(0, 100).trim() + '...';
-      } else {
-        this.shortDescription = this.task.description;
-      }
-    },
     openTaskWindow() {
       this.eventBus.$emit('openTaskWindow', this.task._id);
     }
