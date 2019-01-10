@@ -1,5 +1,7 @@
 <template>
-  <form v-if="form" @submit.prevent>
+  <form
+    @submit.prevent="formUpdate(form)"
+  >
     <label for="title">Title:</label>
     <input
       class="editable-field title"
@@ -8,6 +10,7 @@
       id="title"
       v-model="form.title"
       :disabled="formDisabled"
+      @input.once="setUpdateButtonShow"
     >
     <label for="description">Description:</label>
     <textarea
@@ -17,9 +20,11 @@
       rows="10"
       v-model="form.description"
       :disabled="formDisabled"
+      @input.once="setUpdateButtonShow"
     ></textarea>
     <div class="controls">
       <button
+        v-if="showUpdateButton"
         class="button-link"
         :disabled="formDisabled"
       >
@@ -28,7 +33,7 @@
       </button>
       <button
         type="button"
-        class="button-link"
+        class="button-link delete-button"
         :disabled="formDisabled"
         @click="deleteTask"
       >
@@ -53,7 +58,8 @@ export default {
   data() {
     return {
       formDisabled: false,
-      sendUpdsateSub: null
+      sendUpdsateSub: null,
+      showUpdateButton: false
     }
   },
   methods: {
@@ -86,6 +92,9 @@ export default {
       this.formDisabled = true;
       this.$store.dispatch('deleteTask', this.task._id)
         .then(() => this.$emit('closeWindow'));
+    },
+    setUpdateButtonShow() {
+      this.showUpdateButton = true;
     }
   }
 };
@@ -95,5 +104,9 @@ export default {
 .controls {
   display: flex;
   justify-content: space-between;
+}
+
+.delete-button {
+  margin-left: auto;
 }
 </style>

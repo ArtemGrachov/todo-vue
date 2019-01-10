@@ -68,6 +68,11 @@ describe('TaskDetails.vue', () => {
     expect(spy).to.have.been.called();
   })
 
+  it('show update button', () => {
+    vm.setUpdateButtonShow();
+    expect(vm.showUpdateButton).to.be.true;
+  })
+
   it('update task request', done => {
     const updateFields = {
       title: 'Updated title',
