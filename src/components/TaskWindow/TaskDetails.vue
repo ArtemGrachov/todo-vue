@@ -2,7 +2,6 @@
   <form
     @submit.prevent="formUpdate(form)"
   >
-    <label for="title">Title:</label>
     <input
       class="editable-field title"
       type="text"
@@ -12,16 +11,12 @@
       :disabled="formDisabled"
       @input.once="setUpdateButtonShow"
     >
-    <label for="description">Description:</label>
-    <textarea
-      class="editable-field"
-      name="description"
-      id="description"
-      rows="10"
-      v-model="form.description"
+    <task-description-editor
+      :content="task.description"
       :disabled="formDisabled"
-      @input.once="setUpdateButtonShow"
-    ></textarea>
+      @inputEvent.once="setUpdateButtonShow"
+      v-model="form.description"
+    ></task-description-editor>
     <div class="controls">
       <button
         v-if="showUpdateButton"
@@ -45,7 +40,11 @@
 </template>
 
 <script>
+import TaskDescriptionEditor from './TaskDescriptionEditor.vue';
 export default {
+  components: {
+    TaskDescriptionEditor
+  },
   props: ['task'],
   computed: {
     form() {
@@ -59,7 +58,8 @@ export default {
     return {
       formDisabled: false,
       sendUpdsateSub: null,
-      showUpdateButton: false
+      showUpdateButton: false,
+      editor: null
     }
   },
   methods: {

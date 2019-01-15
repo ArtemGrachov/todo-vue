@@ -16,7 +16,7 @@ import TaskDetails from './TaskDetails.vue';
 export default {
   props: ['inputData'],
   components: {
-    'task-details': TaskDetails
+    'task-details': TaskDetails,
   },
   data: function() {
     return {

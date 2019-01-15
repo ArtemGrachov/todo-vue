@@ -1,0 +1,73 @@
+@import './variables.scss';
+@import './common.scss';
+
+.editor {
+  &-selectable-field {
+    /deep/ {
+      .ProseMirror {
+        @extend %editable-field;
+        padding: $inputPadding;
+        margin-bottom: $inputMargin;
+
+        &-focused {
+          @extend %editable-field-focus;
+        }
+
+        * {
+          &:first-child {
+            margin-top: 0;
+          }
+
+          &:last-child {
+            margin-bottom: 0;
+          }
+        }
+      }
+    }
+
+    &:hover {
+      /deep/ {
+        .ProseMirror {
+          @extend %editable-field-hover;
+        }
+      }
+
+      .editor {
+        &-menu {
+          &-hidden {
+            button {
+              opacity: 1;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  $menuHeight: 38px;
+
+  &-menu {
+    button {
+      width: 38px;
+      height: 38px;
+      text-align: center;
+      padding: 5px;
+      margin: 0;
+      box-shadow: none;
+      background: none;
+      color: $medium;
+    }
+
+    &-hidden {
+      button {
+        opacity: .1;
+      }
+
+      &.focused {
+        button {
+          opacity: 1;
+        }
+      }
+    }
+  }
+}
