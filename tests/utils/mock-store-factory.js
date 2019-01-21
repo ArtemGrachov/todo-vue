@@ -7,8 +7,8 @@ import actionsFactory from '../../src/store/actions-factory';
 
 Vue.use(Vuex);
 
-export default function () {
-  const state = stateFactory(),
+export default function (stateData) {
+  const state = stateFactory(stateData),
     actions = actionsFactory(axios);
 
   return new Vuex.Store({

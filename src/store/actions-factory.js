@@ -3,7 +3,9 @@ import {
   SET_TASKS,
   ADD_TASK,
   UPDATE_TASK,
-  DELETE_TASK
+  DELETE_TASK,
+  ADD_NOTIFICATION,
+  DELETE_NOTIFICATION
 } from './mutation-types';
 
 const tasksUrl = apiConfig.url + 'tasks';
@@ -29,6 +31,12 @@ export default function (httpClient) {
       return httpClient.delete(`${tasksUrl}/${payload}`)
         .then(res => res.data)
         .then(data => context.commit(DELETE_TASK, data._id));
+    },
+    addNotification(context, payload) {
+      context.commit(ADD_NOTIFICATION, payload);
+    },
+    deleteNotification(context, payload) {
+      context.commit(DELETE_NOTIFICATION, payload);
     }
   }
 }
