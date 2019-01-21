@@ -3,9 +3,7 @@
     <div class="title">
       {{ task.title }}
     </div>
-    <div class="description">
-      {{ shortDescription }}
-    </div>
+    <article class="description" v-html="shortDescription"></article>
   </div>
 </template>
 

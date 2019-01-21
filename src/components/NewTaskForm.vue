@@ -20,7 +20,7 @@
           :disabled="formDisabled"
         >
         <text-editor
-          class="editor-selectable-field"
+          class="editor-selectable-field editor-scrollable"
           :content="form.description"
           :disabled="formDisabled"
           v-model="form.description"

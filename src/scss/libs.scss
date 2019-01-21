@@ -2,13 +2,15 @@
 @import './common.scss';
 
 .editor {
+  $editorHeight: 500px;
+
   &-selectable-field {
     /deep/ {
       .ProseMirror {
         @extend %editable-field;
         padding: $inputPadding;
         margin-bottom: $inputMargin;
-        min-height: 300px;
+        min-height: $editorHeight;
         border-width: 1px;
         border-style: solid;
 
@@ -70,6 +72,16 @@
             opacity: 1;
           }
         }
+      }
+    }
+  }
+
+  &-scrollable {
+    /deep/ {
+      .ProseMirror {
+        height: $editorHeight;
+        min-height: auto;
+        overflow-y: auto;
       }
     }
   }
