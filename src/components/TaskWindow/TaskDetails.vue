@@ -20,6 +20,7 @@
       @input.once="setUpdateButtonShow"
     >
     <text-editor
+      class="editor-selectable-field editor-menu-hidden"
       :content="task.description"
       :disabled="formDisabled"
       @inputEvent.once="setUpdateButtonShow"

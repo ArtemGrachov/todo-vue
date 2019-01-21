@@ -10,17 +10,21 @@
         >
           <i class="fas fa-times"></i>
         </button>
-        <label for="title">Title</label>
-        <input type="title" v-model="form.title" :disabled="formDisabled">
-        <label for="description">Description</label>
-        <textarea
-          name="description"
-          id="description"
-          cols="30"
-          rows="10"
-          v-model="form.description"
+        <input
+          class="editable-field title"
+          type="text"
+          name="title"
+          id="title"
+          placehlder="title"
+          v-model="form.title"
           :disabled="formDisabled"
-        ></textarea>
+        >
+        <text-editor
+          class="editor-selectable-field"
+          :content="form.description"
+          :disabled="formDisabled"
+          v-model="form.description"
+        ></text-editor>
         <button>Add</button>
       </form>
     </div>
@@ -28,8 +32,12 @@
 </template>
 
 <script>
+import TextEditor from './TextEditor.vue';
 export default {
   name: "NewTaskForm",
+  components: {
+    TextEditor
+  },
   data: function() {
     return {
       form: {

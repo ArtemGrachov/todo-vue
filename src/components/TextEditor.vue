@@ -2,7 +2,7 @@
   <div class="editor editor-selectable-field">
     <editor-menu-bar :editor="editor">
       <div
-        class="editor-menu editor-menu-hidden"
+        class="editor-menu"
         :class="{ 'focused': focused }"
         slot-scope="{ commands, focused }"
       >

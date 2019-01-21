@@ -14,15 +14,16 @@
   border-color: transparent;
   transition: background $transition;
 
+  &-hover {
+    border-color: $lightHover;
+    background: $lightHover;
+  }
+
   &-focus {
     &:focus {
       border-color: $light;
       background: $lightHover;
       outline: none;
     }
-  }
-
-  &-hover {
-    background: $lightHover;
   }
 }
