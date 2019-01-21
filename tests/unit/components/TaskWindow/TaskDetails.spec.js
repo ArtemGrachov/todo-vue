@@ -111,6 +111,11 @@ describe('TaskDetails.vue', () => {
     vm.updateTaskRequest({});
   })
 
+  it('emit close event', () => {
+    vm.closeWindow();
+    expect(wrapper.emitted().closeWindow).to.have.lengthOf(1);
+  })
+
   it('delete task', done => {
     let id = vm.task._id;
 

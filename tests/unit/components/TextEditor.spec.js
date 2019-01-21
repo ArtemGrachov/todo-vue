@@ -1,12 +1,16 @@
-import { expect } from 'chai';
-import { shallowMount } from '@vue/test-utils';
-import TaskDescriptionEditor from '../../../../src/components/TaskWindow/TaskDescriptionEditor.vue';
+import {
+  expect
+} from 'chai';
+import {
+  shallowMount
+} from '@vue/test-utils';
+import TextEditor from '../../../src/components/TextEditor.vue';
 
-describe('TaskDescriptionEditor.vue', () => {
+describe('TextEditor.vue', () => {
   let wrapper, vm;
 
   beforeEach(() => {
-    wrapper = shallowMount(TaskDescriptionEditor, {
+    wrapper = shallowMount(TextEditor, {
       propsData: {
         content: 'Test'
       }

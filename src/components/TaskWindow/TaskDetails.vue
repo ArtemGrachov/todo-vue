@@ -2,6 +2,14 @@
   <form
     @submit.prevent="formUpdate(form)"
   >
+    <button
+      type="button"
+      class="button-link modal-close"
+      @click="closeWindow"
+      :disabled="formDisabled"
+    >
+      <i class="fas fa-times"></i>
+    </button>
     <input
       class="editable-field title"
       type="text"
@@ -11,12 +19,12 @@
       :disabled="formDisabled"
       @input.once="setUpdateButtonShow"
     >
-    <task-description-editor
+    <text-editor
       :content="task.description"
       :disabled="formDisabled"
       @inputEvent.once="setUpdateButtonShow"
       v-model="form.description"
-    ></task-description-editor>
+    ></text-editor>
     <div class="controls">
       <button
         v-if="showUpdateButton"
@@ -40,10 +48,10 @@
 </template>
 
 <script>
-import TaskDescriptionEditor from './TaskDescriptionEditor.vue';
+import TextEditor from '../TextEditor.vue';
 export default {
   components: {
-    TaskDescriptionEditor
+    TextEditor
   },
   props: ['task'],
   computed: {
@@ -91,10 +99,13 @@ export default {
     deleteTask() {
       this.formDisabled = true;
       this.$store.dispatch('deleteTask', this.task._id)
-        .then(() => this.$emit('closeWindow'));
+        .then(() => this.closeWindow());
     },
     setUpdateButtonShow() {
       this.showUpdateButton = true;
+    },
+    closeWindow() {
+      this.$emit('closeWindow');
     }
   }
 };

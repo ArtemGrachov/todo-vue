@@ -31,6 +31,9 @@ describe('App.vue', () => {
         return {
           eventBus: new Vue()
         }
+      },
+      stubs: {
+        'task-details': true
       }
     });
     vm = wrapper.vm;

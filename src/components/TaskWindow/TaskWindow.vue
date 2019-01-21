@@ -29,13 +29,9 @@ export default {
     }
   },
   methods: {
-    closeWindow() { 
+    closeWindow() {
       this.$emit('closeWindow');
     }
   }
 }
 </script>
-
-<style lang="scss" scoped>
-
-</style>
