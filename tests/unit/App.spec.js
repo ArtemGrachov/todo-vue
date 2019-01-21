@@ -33,7 +33,10 @@ describe('App.vue', () => {
         }
       },
       stubs: {
-        'task-details': true
+        'task-details': true,
+        'TaskDetails': true,
+        'task-window': true,
+        'TaskWindow': true
       }
     });
     vm = wrapper.vm;

@@ -53,4 +53,26 @@ describe('Store mutations', () => {
 
     expect(state.tasks.find(task => task._id === taskToDeleteId)).not.to.be.ok;
   })
+
+  describe('notifications', () => {
+    let notification;
+    beforeEach(() => {
+      state = stateFactory();
+      notification = {
+        text: 'Test notification',
+        type: 'Info'
+      };
+    })
+
+    it('add notification', () => {
+      mutations.ADD_NOTIFICATION(state, notification);
+      expect(state.notifications).to.deep.include(notification);
+    })
+
+    it('remove notification', () => {
+      mutations.ADD_NOTIFICATION(state, notification);
+      mutations.DELETE_NOTIFICATION(state, 0);
+      expect(state.notifications).to.not.deep.include(notification);
+    })
+  })
 });
