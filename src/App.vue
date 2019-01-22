@@ -11,7 +11,7 @@
         </div>
       </header>
       <transition-group name="slide-x">
-        <task-item v-for="(task, index) in tasks" :key="index" :task="task"></task-item>
+        <task-item v-for="task in tasks" :key="task._id" :task="task"></task-item>
       </transition-group>
       <div class="new-task-form">
         <button class="button-link form-toggle-button" @click="openNewTaskForm">
@@ -65,38 +65,6 @@ export default {
         data: taskId
       });
     });
-    setTimeout(() => {
-
-      this.$store.dispatch('addNotification', {
-        title: 'Test',
-        text: 'Test',
-        type: 'info'
-      })
-    }, 1000);
-    setTimeout(() => {
-
-      this.$store.dispatch('addNotification', {
-        title: 'Test',
-        text: 'Test',
-        type: 'success'
-      })
-    }, 2000);
-    setTimeout(() => {
-
-      this.$store.dispatch('addNotification', {
-        title: 'Test',
-        text: 'Test',
-        type: 'warning'
-      })
-    }, 3000);
-    setTimeout(() => {
-
-      this.$store.dispatch('addNotification', {
-        title: 'Test',
-        text: 'Test',
-        type: 'danger'
-      })
-    }, 4000);
   },
   destroyed() {
     this.eventBus.$off("newTaskSubmit");

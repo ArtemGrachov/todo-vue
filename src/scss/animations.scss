@@ -45,3 +45,12 @@ $slideMove: 20px;
   }
 }
 
+.notification-enter-active,
+.notification-leave-active {
+  transition: opacity 500ms, transform 500ms;
+}
+
+.notification-enter,
+.notification-leave-to {
+  opacity: 0;
+}

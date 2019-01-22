@@ -6,6 +6,7 @@ import {
   ADD_NOTIFICATION,
   DELETE_NOTIFICATION
 } from './mutation-types';
+import randomId from 'random-id';
 
 export default {
   [SET_TASKS](state, payload) {
@@ -27,6 +28,7 @@ export default {
     if (index !== -1) state.tasks.splice(index, 1);
   },
   [ADD_NOTIFICATION](state, payload) {
+    payload.id = randomId(5, '0');
     state.notifications.push(payload);
   },
   [DELETE_NOTIFICATION](state, payload){ 
