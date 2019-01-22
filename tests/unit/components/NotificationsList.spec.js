@@ -20,7 +20,7 @@ describe('NotificationsList.spec.js', () => {
   })
 
   it('remove notification', () => {
-    vm.removeNotification(0);
+    vm.deleteNotification(0);
     expect(store.state.notifications).to.have.length(0);
   })
 })

@@ -5,6 +5,7 @@
       v-for="(notification, index) in notifications"
       :key="index"
       :notification="notification"
+      @close="deleteNotification(index)"
     ></app-notification>
   </div>
 </template>
@@ -22,7 +23,7 @@ export default {
     }
   },
   methods: {
-    removeNotification(index) {
+    deleteNotification(index) {
       this.$store.dispatch('deleteNotification', index);
     }
   }

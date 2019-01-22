@@ -12,7 +12,10 @@
         {{notification.text}}
       </div>
     </div>
-    <button class="button-link notification-close">
+    <button
+      class="button-link notification-close"
+      @click="close"
+    >
       <i class="fas fa-times"></i>
     </button>
   </div>
