@@ -32,12 +32,7 @@ describe('App.vue', () => {
           eventBus: new Vue()
         }
       },
-      stubs: {
-        'task-details': true,
-        'TaskDetails': true,
-        'task-window': true,
-        'TaskWindow': true
-      }
+      stubs: ['text-editor']
     });
     vm = wrapper.vm;
   });

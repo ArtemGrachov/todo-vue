@@ -42,9 +42,9 @@ export default {
   name: "app",
   inject: ["eventBus"],
   components: {
-    "task-item": TaskItem,
-    "new-task-form": NewTaskForm,
-    "notifications-list": NotificationsList
+    TaskItem,
+    NewTaskForm,
+    NotificationsList
   },
   data: function() {
     return {
