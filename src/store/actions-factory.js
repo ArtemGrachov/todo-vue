@@ -13,24 +13,24 @@ const tasksUrl = apiConfig.url + 'tasks';
 const errorHandler = (error, context) => {
   context.commit(ADD_NOTIFICATION, {
     title: 'Error',
-    text: (error.response && error.response.data.message) ? error.response.data.message : 'Unknown error',
+    text: (error.response && error.response.data && error.response.data.message) ? error.response.data.message : 'Unknown error',
     type: 'danger'
   });
-  throw error;
 }
 
 export default function (httpClient) {
   return {
     getTasks(context) {
-      return httpClient.get(tasksUrl)
+      const request = httpClient.get(tasksUrl)
         .then(res => res.data)
         .then(data => context.commit(SET_TASKS, data))
-        .catch(error => {
-          errorHandler(error, context);
-        });
+      request.catch(error => {
+        errorHandler(error, context);
+      });
+      return request;
     },
     createTask(context, payload) {
-      return httpClient.post(tasksUrl, payload)
+      const request = httpClient.post(tasksUrl, payload)
         .then(res => res.data)
         .then(data => {
           context.commit(ADD_TASK, data);
@@ -39,13 +39,14 @@ export default function (httpClient) {
             text: `Task '${data.title}' has been created`,
             type: 'success'
           });
-        })
-        .catch(error => {
-          errorHandler(error, context);
         });
+      request.catch(error => {
+        errorHandler(error, context);
+      });
+      return request;
     },
     updateTask(context, payload) {
-      return httpClient.put(`${tasksUrl}/${payload.id}`, payload.data)
+      const request = httpClient.put(`${tasksUrl}/${payload.id}`, payload.data)
         .then(res => res.data)
         .then(data => {
           context.commit(UPDATE_TASK, data);
@@ -54,13 +55,14 @@ export default function (httpClient) {
             text: `Task '${data.title}' has been updated`,
             type: 'success'
           });
-        })
-        .catch(error => {
-          errorHandler(error, context);
         });
+      request.catch(error => {
+        errorHandler(error, context);
+      });
+      return request;
     },
     deleteTask(context, payload) {
-      return httpClient.delete(`${tasksUrl}/${payload}`)
+      const request = httpClient.delete(`${tasksUrl}/${payload}`)
         .then(res => res.data)
         .then(data => {
           context.commit(DELETE_TASK, data._id);
@@ -69,10 +71,11 @@ export default function (httpClient) {
             text: `Task '${data.title}' has been deleted`,
             type: 'success'
           });
-        })
-        .catch(error => {
-          errorHandler(error, context);
         });
+      request.catch(error => {
+        errorHandler(error, context);
+      });
+      return request;
     },
     addNotification(context, payload) {
       context.commit(ADD_NOTIFICATION, payload);
