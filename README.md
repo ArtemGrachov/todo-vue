@@ -7,7 +7,6 @@ This app uses [ToDo Application Server](https://github.com/ArtemGrachov/todo-nod
 * add checking templates to unit tests
 * setting tasks as done / undode
 * add JSDoc
-* notifications
 * authentification
 * multiple users
 * multiple lists
@@ -21,6 +20,7 @@ This app uses [ToDo Application Server](https://github.com/ArtemGrachov/todo-nod
 * hide long task description
 * add animations
 * replace task view / edit by editable fields (title and description)
+* notifications
 
 ## Project setup
 ```
