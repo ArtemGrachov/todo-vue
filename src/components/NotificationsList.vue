@@ -1,9 +1,26 @@
 <template>
-  <ul></ul>
+  <div class="notifications-list">
+    <app-notification
+      class="notification"
+      v-for="(notification, index) in notifications"
+      :key="index"
+      :notification="notification"
+    ></app-notification>
+  </div>
 </template>
 
 <script>
+import AppNotification from './AppNotification.vue';
+
 export default {
+  components: {
+    AppNotification
+  },
+  computed: {
+    notifications() {
+      return this.$store.state.notifications;
+    }
+  },
   methods: {
     removeNotification(index) {
       this.$store.dispatch('deleteNotification', index);
@@ -13,4 +30,19 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.notifications-list {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  width: 100%;
+  max-width: 350px;
+}
+
+.notification {
+  margin-bottom: 10px;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
 </style>

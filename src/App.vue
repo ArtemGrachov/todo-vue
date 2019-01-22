@@ -27,6 +27,7 @@
         v-bind:inputData="modal.data"
         @closeWindow="closeModal(index)"
       ></component>
+      <notifications-list></notifications-list>
     </div>
   </div>
 </template>
@@ -35,13 +36,15 @@
 import TaskItem from "./components/TaskItem.vue";
 import NewTaskForm from "./components/NewTaskForm.vue";
 import TaskWindow from "./components/TaskWindow/TaskWindow.vue";
+import NotificationsList from './components/NotificationsList.vue';
 
 export default {
   name: "app",
   inject: ["eventBus"],
   components: {
     "task-item": TaskItem,
-    "new-task-form": NewTaskForm
+    "new-task-form": NewTaskForm,
+    "notifications-list": NotificationsList
   },
   data: function() {
     return {
@@ -62,6 +65,38 @@ export default {
         data: taskId
       });
     });
+    setTimeout(() => {
+
+      this.$store.dispatch('addNotification', {
+        title: 'Test',
+        text: 'Test',
+        type: 'info'
+      })
+    }, 1000);
+    setTimeout(() => {
+
+      this.$store.dispatch('addNotification', {
+        title: 'Test',
+        text: 'Test',
+        type: 'success'
+      })
+    }, 2000);
+    setTimeout(() => {
+
+      this.$store.dispatch('addNotification', {
+        title: 'Test',
+        text: 'Test',
+        type: 'warning'
+      })
+    }, 3000);
+    setTimeout(() => {
+
+      this.$store.dispatch('addNotification', {
+        title: 'Test',
+        text: 'Test',
+        type: 'danger'
+      })
+    }, 4000);
   },
   destroyed() {
     this.eventBus.$off("newTaskSubmit");
