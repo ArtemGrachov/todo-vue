@@ -2,6 +2,7 @@
   <div
     class="notification"
     :class="notification.type"
+    @click="close"
   >
     <div class="notification-icon"></div>
     <div class="notification-description">
@@ -12,12 +13,6 @@
         {{notification.text}}
       </div>
     </div>
-    <button
-      class="button-link notification-close"
-      @click="close"
-    >
-      <i class="fas fa-times"></i>
-    </button>
   </div>
 </template>
 
@@ -43,6 +38,11 @@ export default {
   display: flex;
   align-items: center;
   position: relative;
+  transition: $transition;
+
+  &:hover {
+    background: rgba(black, .45);
+  }
 
   &-description {
     flex: 1 1 auto;
@@ -118,19 +118,6 @@ export default {
         color: $red;
       }
     }
-  }
-}
-
-button.notification-close {
-  color: rgba(white, .45);
-  margin-bottom: 0;
-  top: 2px;
-  right: 4px;
-  position: absolute;
-
-  &:hover,
-  &:focus {
-    color: white;
   }
 }
 

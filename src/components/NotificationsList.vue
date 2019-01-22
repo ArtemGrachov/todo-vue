@@ -35,6 +35,7 @@ export default {
 <style lang="scss" scoped>
 .notifications-list {
   position: fixed;
+  z-index: 75;
   bottom: 20px;
   left: 20px;
   width: 100%;
